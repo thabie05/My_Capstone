@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ExpenseList from "./components/ExpenseList";
 import TotalAmount from "./components/TotalAmount";
 import AddExpenseFrom from "./components/AddExpenseFrom";
+import AddIncomeForm from "./components/AddIncomeForm";
 
 
 const App= () => {
@@ -41,7 +42,14 @@ const [formData, setFormData] = useState({
         setHideForm={setHideForm}
         toggleForm={toggleForm}
       />
+
+      <AddIncomeForm
+        formData={formData}
+        setFormData={setFormData}
+        />
+
       <TotalAmount transactions={transactions} />
+
       <ExpenseList 
       transactions={transactions}
       toggleForm={toggleForm}
