@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ExpenseList from "./ExpenseList";
+import TotalAmount from "./TotalAmount";
 
 // State management for form fields
 const AddExpense = () => {
@@ -125,7 +126,7 @@ const AddExpense = () => {
           Add +
         </button>
       </form>
-      
+      <TotalAmount transactions={transactions} />
       <ExpenseList transactions={transactions} />
     </div>
   );
