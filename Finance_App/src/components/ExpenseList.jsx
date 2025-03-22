@@ -1,9 +1,9 @@
 import React from 'react'
 
-const ExpenseList = ({formData}) => {
+const ExpenseList = ({transactions}) => {
   return (
     <div>
-        <div className="overflow-x-auto rounded-3xl shadow absolute left-335 right-30 top-95 max-w-4xl mx-auto w-lg">
+       <div className="overflow-x-auto rounded-3xl shadow absolute left-335 right-30 top-95 max-w-4xl mx-auto w-lg">
         <table className="min-w-full divide-y divide-gray-900">
           <thead className="bg-gray-900">
             <tr>
@@ -14,18 +14,26 @@ const ExpenseList = ({formData}) => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-              <tr className="hover:bg-gray-50">
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{formData.name}</td>
+            {transactions.map((transaction, index) => (
+              <tr key={index} className="hover:bg-gray-50">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{transaction.name}</td>
         
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{formData.category}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{transaction.category}</td>
                 <td className="px-5 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {new Date(formData.date).toLocaleDateString()}
+                  {new Date(transaction.date).toLocaleDateString()}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-red-500 font-medium">
-                  -R{parseFloat(formData.amount).toFixed(2)}
+                  -R{parseFloat(transaction.amount).toFixed(2)}
                 </td>
               </tr>
-          
+            ))}
+            {transactions.length === 0 && (
+              <tr>
+                <td colSpan="4" className="px-6 py-4 text-center text-gray-500">
+                  No transactions found
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

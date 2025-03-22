@@ -10,6 +10,9 @@ const AddExpense = () => {
     date: "",
   });
 
+  // State management for transactions list
+  const [transactions, setTransactions] = useState([]);
+
 //update all input fields state when input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,6 +22,7 @@ const AddExpense = () => {
     }));
   };
 
+  //Submit the form and add a new transaction to the list of transactions and display them in the expense list
   const handleAddTransaction = (e) => {
     e.preventDefault();
     const newTransaction = {
@@ -27,6 +31,12 @@ const AddExpense = () => {
       category: formData.category,
       date: formData.date,
     };
+
+    //this is to update the list of transactions with the new transaction
+    setTransactions((prevTransactions) => {
+      const updatedTransactions = [...prevTransactions, newTransaction];
+      return updatedTransactions;
+    });
     
     
     //this is to reset the input fields after adding a transaction
@@ -107,8 +117,8 @@ const AddExpense = () => {
           Add +
         </button>
       </form>
-      <ExpenseList formData={formData}/>
       
+      <ExpenseList transactions={transactions} />
     </div>
   );
 };
