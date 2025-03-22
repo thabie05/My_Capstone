@@ -1,7 +1,7 @@
-const ExpenseList = ({transactions}) => {
+const ExpenseList = ({transactions, hideForm, toggleForm}) => {
   return (
     <div>
-       <div className="overflow-x-auto rounded-3xl shadow absolute left-335 right-30 top-95 max-w-4xl mx-auto w-lg">
+       <div className="overflow-x-auto rounded-3xl shadow absolute left-335 right-30 top-25 max-w-4xl mx-auto w-lg">
         <table className="min-w-full divide-y divide-gray-900">
           <thead className="bg-gray-900">
             <tr>
@@ -34,6 +34,15 @@ const ExpenseList = ({transactions}) => {
             )}
           </tbody>
         </table>
+        <div className="bg-gray-500">
+          <span className="relative left-45">{hideForm ? "Add" : ""}</span>
+        { hideForm && <button
+        onClick={toggleForm}
+        className="bg-blue-600 border-7 border-gray-500 bottom-1 size-15 text-center text-white relative left-50 py-2 px-4 rounded-full hover:bg-blue-700 transition-colors"
+        >
+        +
+        </button>}<span className="relative left-55">{hideForm ? "Expense" : ""}</span>
+        </div>
       </div>
     </div>
   )
