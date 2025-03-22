@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ExpenseList = (formData) => {
+const ExpenseList = ({formData}) => {
   return (
     <div>
         <div className="overflow-x-auto rounded-3xl shadow absolute left-335 right-30 top-95 max-w-4xl mx-auto w-lg">

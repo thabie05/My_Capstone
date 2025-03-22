@@ -42,7 +42,6 @@ const AddExpense = () => {
 
   return (
     <div className="max-w-4xl w-full mx-auto p-6">
-      <p className="text-white">{formData.name}</p>
         <form onSubmit={handleAddTransaction} className="bg-gray-200 z-1 p-6 rounded-lg shadow-md w-lg top-25 mb-8 absolute left-335">
          
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -108,7 +107,7 @@ const AddExpense = () => {
           Add +
         </button>
       </form>
-      <ExpenseList />
+      <ExpenseList formData={formData}/>
       
     </div>
   );
