@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ExpenseList from "./ExpenseList";
 
 // State management for form fields
@@ -12,6 +12,15 @@ const AddExpense = () => {
 
   // State management for transactions list
   const [transactions, setTransactions] = useState([]);
+
+  // Load transactions from local storage on component mount
+  useEffect(() => {
+    const storedTransactions = localStorage.getItem("transactions");
+    if (storedTransactions) {
+      setTransactions(JSON.parse(storedTransactions));
+    }
+  }, []);
+  
 
 //update all input fields state when input changes
   const handleChange = (e) => {
@@ -35,6 +44,7 @@ const AddExpense = () => {
     //this is to update the list of transactions with the new transaction
     setTransactions((prevTransactions) => {
       const updatedTransactions = [...prevTransactions, newTransaction];
+      localStorage.setItem("transactions", JSON.stringify(updatedTransactions));
       return updatedTransactions;
     });
     
@@ -47,8 +57,6 @@ const AddExpense = () => {
       date: "",
     });
   };
-  
-
 
   return (
     <div className="max-w-4xl w-full mx-auto p-6">
