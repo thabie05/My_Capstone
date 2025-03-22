@@ -1,5 +1,4 @@
 import AddExpense from "./components/AddExpense";
-import TotalAmount from "./components/TotalAmount";
 
 const App = () => {
   return (
