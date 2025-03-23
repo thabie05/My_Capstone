@@ -1,7 +1,15 @@
+import React, { useState } from "react";
 
-const AddExpenseFrom = ({ formData, setFormData, hideForm, toggleForm, setTransactions }) => {
 
-    
+const AddExpenseFrom = ({ expenseTransactions, hideForm, toggleForm, setExpenseTransactions }) => {
+
+   // State management for form fields
+  const [formData, setFormData] = useState({
+      name: "",
+      amount: "",
+      category: "",
+      date: "",
+    }); 
     
 
   //update all input fields state when input changes
@@ -16,7 +24,7 @@ const AddExpenseFrom = ({ formData, setFormData, hideForm, toggleForm, setTransa
   //Submit the form and add a new transaction to the list of transactions and display them in the expense list
   const handleAddTransaction = (e) => {
     e.preventDefault();
-    const newTransaction = {
+    const newExpense = {
       name: formData.name,
       amount: formData.amount,
       category: formData.category,
@@ -24,10 +32,10 @@ const AddExpenseFrom = ({ formData, setFormData, hideForm, toggleForm, setTransa
     };
 
     //this is to update the list of transactions with the new transaction
-    setTransactions((prevTransactions) => {
-      const updatedTransactions = [...prevTransactions, newTransaction];
-      localStorage.setItem("transactions", JSON.stringify(updatedTransactions));
-      return updatedTransactions;
+    setExpenseTransactions((prevTransactions) => {
+      const updatedExpense = [...prevTransactions, newExpense];
+      localStorage.setItem("moneyOut", JSON.stringify(updatedExpense));
+      return updatedExpense;
     });
     
     

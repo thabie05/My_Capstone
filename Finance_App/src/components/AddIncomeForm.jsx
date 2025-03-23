@@ -1,21 +1,6 @@
 import { useEffect, useState } from "react";
 
-const TotalAmount = ({ transactions }) => {
-  const total = transactions.reduce((sum, transaction) => {
-    const amount = parseFloat(transaction.amount) || 0;
-    return sum + amount;
-  }, 0);
-
-  return (
-    <div className="p-4 bg-gray-100 rounded-t-3xl shadow-md mb-6 w-sm text-center absolute top-34 right-20 left-20">
-      <h3 className="text-2xl font-bold text-gray-800">
-        Total Income: R{total.toFixed(2)}
-      </h3>
-    </div>
-  );
-};
-
-const AddIncomeForm = () => {
+const AddIncomeForm = ({ incomeTransactions, setIncomeTransactions }) => {
   const [formIncome, setFormIncome] = useState({
     name: "",
     amount: "",
@@ -24,14 +9,6 @@ const AddIncomeForm = () => {
   });
 
   const [hideForm, setHideForm] = useState(true)
-  const [transactions, setTransactions] = useState([]);
-
-  useEffect(() => {
-    const storedIncome = localStorage.getItem("income");
-    if (storedIncome) {
-      setTransactions(JSON.parse(storedIncome));
-    }
-  }, []);
 
   const toggleForm = () => {
     setHideForm(!hideForm);
@@ -55,9 +32,9 @@ const AddIncomeForm = () => {
       date: formIncome.date,
     };
     
-    setTransactions((prevTransactions) => {
+    setIncomeTransactions((prevTransactions) => {
       const updatedIncome = [...prevTransactions, newIncome];
-      localStorage.setItem("transactions", JSON.stringify(updatedIncome));
+      localStorage.setItem("moneyIn", JSON.stringify(updatedIncome));
       return updatedIncome;
     });
 
@@ -75,7 +52,7 @@ const AddIncomeForm = () => {
     <div className="max-w-4xl w-full mx-auto p-6">
       
 
-      {!hideForm &&
+      {hideForm ? "" :
         <form onSubmit={handleAddTransaction} className="bg-gray-200 z-1 p-6 rounded-3xl shadow-md w-lg top-25 mb-8 absolute left-335">
           <button
           onClick={toggleForm}
@@ -145,9 +122,7 @@ const AddIncomeForm = () => {
         </button>
       </form>}
 
-      <TotalAmount transactions={transactions} />
-
-      <div className="overflow-x-auto rounded-3xl shadow absolute left-5 right-30 top-25 max-w-4xl mx-auto w-lg">
+      <div className="overflow-x-auto rounded-3xl shadow absolute left-5 right-30 top-85 max-w-4xl mx-auto w-lg">
         <table className="min-w-full divide-y divide-gray-900">
           <thead className="bg-gray-900">
             <tr>
@@ -158,7 +133,7 @@ const AddIncomeForm = () => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {transactions.map((transaction, index) => (
+            {incomeTransactions.map((transaction, index) => (
               <tr key={index} className="hover:bg-gray-50">
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{transaction.name}</td>
         
@@ -171,7 +146,7 @@ const AddIncomeForm = () => {
                 </td>
               </tr>
             ))}
-            {transactions.length === 0 && (
+            {incomeTransactions.length === 0 && (
               <tr>
                 <td colSpan="4" className="px-6 py-4 text-center text-gray-500">
                   No transactions found
