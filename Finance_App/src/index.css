@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
 body {
-  background-color: #2e2e2e;
+  background-image: url(https://i.ibb.co/xt7bLS3t/bg.jpg.jpeg);
+  background-size: 1080px 720px;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: #fff;
 }

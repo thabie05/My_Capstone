@@ -1,7 +1,8 @@
-const ExpenseList = ({transactions, hideForm, toggleForm}) => {
+
+const IncomeList = ({ transactions, hideForm, toggleForm }) => {
   return (
     <div>
-       <div className="overflow-x-auto rounded-3xl shadow  max-w-4xl mx-auto w-lg">
+      <div className="overflow-x-auto rounded-3xl shadow absolute left-5 right-30 top-85 max-w-4xl mx-auto w-lg">
         <table className="min-w-full divide-y divide-gray-900">
           <thead className="bg-gray-900">
             <tr>
@@ -20,8 +21,8 @@ const ExpenseList = ({transactions, hideForm, toggleForm}) => {
                 <td className="px-5 py-4 whitespace-nowrap text-sm text-gray-500">
                   {new Date(transaction.date).toLocaleDateString()}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-red-500 font-medium">
-                  -R{parseFloat(transaction.amount).toFixed(2)}
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-green-500 font-medium">
+                  +R{parseFloat(transaction.amount).toFixed(2)}
                 </td>
               </tr>
             ))}
@@ -41,11 +42,11 @@ const ExpenseList = ({transactions, hideForm, toggleForm}) => {
         className="bg-blue-600 border-7 border-gray-500 bottom-1 size-15 text-center text-white relative left-50 py-2 px-4 rounded-full hover:bg-blue-700 transition-colors"
         >
         +
-        </button>}<span className="relative left-55">{hideForm ? "Expense" : ""}</span>
+        </button>}<span className="relative left-55">{hideForm ? "Income" : ""}</span>
         </div>
       </div>
     </div>
   )
 }
 
-export default ExpenseList;
+export default IncomeList

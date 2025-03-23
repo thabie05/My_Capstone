@@ -3,6 +3,9 @@ import ExpenseList from "./components/ExpenseList";
 import TotalAmount from "./components/TotalAmount";
 import AddExpenseForm from "./components/AddExpenseForm";
 import AddIncomeForm from "./components/AddIncomeForm";
+import IncomeList from "./components/IncomeList";
+
+
 
 
 const App = () => {
@@ -19,12 +22,25 @@ const App = () => {
   const toggleExpenseForm = () => setHideExpenseForm(!hideExpenseForm);
 
   return (
-    <div className="max-w-4xl w-full mx-auto p-6">
+    <div className=" max-w-4xl w-full mx-auto p-6 flex gap-6">
       <TotalAmount 
         incomeTransactions={incomeTransactions}
         expenseTransactions={expenseTransactions}
       />
-      
+      <div>
+      <ExpenseList 
+        transactions={expenseTransactions}
+        setTransactions={setExpenseTransactions}
+        toggleForm={toggleExpenseForm}
+        hideForm={hideExpenseForm}
+      />
+      <IncomeList 
+        transactions={incomeTransactions}
+        setTransactions={setIncomeTransactions}
+        toggleForm={toggleIncomeForm}
+        hideForm={hideIncomeForm}
+      />
+      </div>
       <AddIncomeForm
         incomeTransactions={incomeTransactions}
         setIncomeTransactions={setIncomeTransactions}
@@ -39,11 +55,7 @@ const App = () => {
         toggleForm={toggleExpenseForm}
       />
 
-      <ExpenseList 
-        transactions={expenseTransactions}
-        toggleForm={toggleExpenseForm}
-        hideForm={hideExpenseForm}
-      />
+      
     </div>
   );
 };

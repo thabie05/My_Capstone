@@ -20,6 +20,7 @@ const TotalAmount = ({ incomeTransactions, expenseTransactions }) => {
       <h3 className="text-2xl font-bold text-blue-500">
         Total Saved: R{totalSaved.toFixed(2)}
       </h3>
+      
     </div>
   );
 };
