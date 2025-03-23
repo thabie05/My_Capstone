@@ -54,10 +54,13 @@ const AddIncomeForm = ({ incomeTransactions, setIncomeTransactions }) => {
 
       {hideForm ? "" :
         <form onSubmit={handleAddTransaction} className="bg-gray-200 z-1 p-6 rounded-3xl shadow-md w-lg top-25 mb-8 absolute left-335">
-          <button
+          <div className="flex justify-between" id="close">
+            <button
           onClick={toggleForm}
           className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors"
         >Close</button>
+        <h3 className="text-lg font-medium text-gray-700 mb-1">Add Income</h3>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>

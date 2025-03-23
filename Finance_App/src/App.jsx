@@ -1,30 +1,22 @@
 import { useEffect, useState } from "react";
 import ExpenseList from "./components/ExpenseList";
 import TotalAmount from "./components/TotalAmount";
-import AddExpenseFrom from "./components/AddExpenseFrom";
+import AddExpenseForm from "./components/AddExpenseForm";
 import AddIncomeForm from "./components/AddIncomeForm";
 
 
-const App= () => {
+const App = () => {
+  // Separate states for both forms
+  const [hideIncomeForm, setHideIncomeForm] = useState(true);
+  const [hideExpenseForm, setHideExpenseForm] = useState(true);
 
-  const [hideForm, setHideForm] = useState(true)
-
-  // State management for transactions list
+  // State management for transactions
   const [incomeTransactions, setIncomeTransactions] = useState([]);
   const [expenseTransactions, setExpenseTransactions] = useState([]);
 
-  // Load transactions from local storage on component mount
-  useEffect(() => {
-    const storedIncome = localStorage.getItem("moneyIn");
-    const storedExpenses = localStorage.getItem("moneyOut");
-    
-    if (storedIncome) setIncomeTransactions(JSON.parse(storedIncome));
-    if (storedExpenses) setExpenseTransactions(JSON.parse(storedExpenses));
-  }, []);
-
-  const toggleForm = () => {
-    setHideForm(!hideForm)
-  }
+  // Toggle functions
+  const toggleIncomeForm = () => setHideIncomeForm(!hideIncomeForm);
+  const toggleExpenseForm = () => setHideExpenseForm(!hideExpenseForm);
 
   return (
     <div className="max-w-4xl w-full mx-auto p-6">
@@ -36,19 +28,22 @@ const App= () => {
       <AddIncomeForm
         incomeTransactions={incomeTransactions}
         setIncomeTransactions={setIncomeTransactions}
+        hideForm={hideIncomeForm}
+        toggleForm={toggleIncomeForm}
       />
       
-      <AddExpenseFrom
+      <AddExpenseForm
         expenseTransactions={expenseTransactions}
         setExpenseTransactions={setExpenseTransactions}
+        hideForm={hideExpenseForm}
+        toggleForm={toggleExpenseForm}
       />
 
       <ExpenseList 
-      transactions={expenseTransactions}
-      toggleForm={toggleForm}
-      setHideForm={setHideForm}
-      hideForm={hideForm}
-       />
+        transactions={expenseTransactions}
+        toggleForm={toggleExpenseForm}
+        hideForm={hideExpenseForm}
+      />
     </div>
   );
 };

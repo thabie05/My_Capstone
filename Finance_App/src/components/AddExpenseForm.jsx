@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 
 
-const AddExpenseFrom = ({ expenseTransactions, hideForm, toggleForm, setExpenseTransactions }) => {
+const AddExpenseForm = ({ 
+  expenseTransactions, 
+  hideForm, 
+  toggleForm, 
+  setExpenseTransactions 
+}) => {
 
    // State management for form fields
   const [formData, setFormData] = useState({
@@ -52,7 +57,7 @@ const AddExpenseFrom = ({ expenseTransactions, hideForm, toggleForm, setExpenseT
     <div>
       
       { !hideForm &&
-        <form onSubmit={handleAddTransaction} className="bg-gray-200 z-1 p-6 rounded-3xl shadow-md w-lg top-25 mb-8 absolute left-205">
+        (<form onSubmit={handleAddTransaction} className="bg-gray-200 z-1 p-6 rounded-3xl shadow-md w-lg top-25 mb-8 absolute left-205">
             <button
           onClick={toggleForm}
           className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors"
@@ -117,9 +122,9 @@ const AddExpenseFrom = ({ expenseTransactions, hideForm, toggleForm, setExpenseT
          >
            Add +
          </button>
-       </form>}
+       </form>)}
     </div>
   )
 }
 
-export default AddExpenseFrom;
+export default AddExpenseForm;
