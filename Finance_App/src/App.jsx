@@ -21,18 +21,20 @@ const App = () => {
   const toggleIncomeForm = () => setHideIncomeForm(!hideIncomeForm);
   const toggleExpenseForm = () => setHideExpenseForm(!hideExpenseForm);
 
+   // Load transactions from local storage on component mount
+   useEffect(() => {
+    const storedIncome = localStorage.getItem("moneyIn");
+    const storedExpenses = localStorage.getItem("moneyOut");
+    
+    if (storedIncome) setIncomeTransactions(JSON.parse(storedIncome));
+    if (storedExpenses) setExpenseTransactions(JSON.parse(storedExpenses));
+  }, []);
+
   return (
-    <div className=" max-w-4xl w-full mx-auto p-6 flex gap-6">
+    <div className=" max-w-[1920px] mx-auto p-6 flex gap-6 ">
       <TotalAmount 
         incomeTransactions={incomeTransactions}
         expenseTransactions={expenseTransactions}
-      />
-      <div>
-      <ExpenseList 
-        transactions={expenseTransactions}
-        setTransactions={setExpenseTransactions}
-        toggleForm={toggleExpenseForm}
-        hideForm={hideExpenseForm}
       />
       <IncomeList 
         transactions={incomeTransactions}
@@ -40,7 +42,13 @@ const App = () => {
         toggleForm={toggleIncomeForm}
         hideForm={hideIncomeForm}
       />
-      </div>
+      <ExpenseList 
+        transactions={expenseTransactions}
+        setTransactions={setExpenseTransactions}
+        toggleForm={toggleExpenseForm}
+        hideForm={hideExpenseForm}
+      />
+      
       <AddIncomeForm
         incomeTransactions={incomeTransactions}
         setIncomeTransactions={setIncomeTransactions}
@@ -54,6 +62,7 @@ const App = () => {
         hideForm={hideExpenseForm}
         toggleForm={toggleExpenseForm}
       />
+      
 
       
     </div>

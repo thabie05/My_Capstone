@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const AddIncomeForm = ({ incomeTransactions, hideForm, toggleForm, setIncomeTransactions }) => {
+const AddIncomeForm = ({ hideForm, toggleForm, setIncomeTransactions }) => {
   const [formIncome, setFormIncome] = useState({
     name: "",
     amount: "",
@@ -46,7 +46,7 @@ const AddIncomeForm = ({ incomeTransactions, hideForm, toggleForm, setIncomeTran
       
 
       {hideForm ? "" :
-        <form onSubmit={handleAddTransaction} className="bg-gray-200 z-1 p-6 rounded-3xl shadow-md w-lg top-25 mb-8 absolute left-335">
+        <form onSubmit={handleAddTransaction} className="bg-gray-200 z-1 p-6 rounded-3xl shadow-md max-w-lg w-full mx-auto absolute">
           <div className="flex justify-between" id="close">
             <button
           onClick={toggleForm}

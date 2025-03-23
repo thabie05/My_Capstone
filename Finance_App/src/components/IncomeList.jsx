@@ -2,7 +2,7 @@
 const IncomeList = ({ transactions, hideForm, toggleForm }) => {
   return (
     <div>
-      <div className="overflow-x-auto rounded-3xl shadow absolute left-5 right-30 top-85 max-w-4xl mx-auto w-lg">
+      <div className="overflow-x-auto rounded-3xl shadow mt-40 max-w-4xl mx-auto w-lg">
         <table className="min-w-full divide-y divide-gray-900">
           <thead className="bg-gray-900">
             <tr>

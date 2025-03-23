@@ -1,7 +1,7 @@
 const ExpenseList = ({transactions, hideForm, toggleForm}) => {
   return (
     <div>
-       <div className="overflow-x-auto rounded-3xl shadow  max-w-4xl mx-auto w-lg">
+       <div className="overflow-x-auto rounded-3xl shadow mt-40 max-w-4xl mx-auto w-lg">
         <table className="min-w-full divide-y divide-gray-900">
           <thead className="bg-gray-900">
             <tr>

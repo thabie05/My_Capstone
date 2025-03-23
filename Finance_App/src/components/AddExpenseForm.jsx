@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 
 
-const AddExpenseForm = ({ 
-  expenseTransactions, 
-  hideForm, 
-  toggleForm, 
-  setExpenseTransactions 
-}) => {
+const AddExpenseForm = ({ hideForm, toggleForm, setExpenseTransactions }) => {
 
    // State management for form fields
   const [formData, setFormData] = useState({
@@ -54,10 +49,9 @@ const AddExpenseForm = ({
   };
 
   return (
-    <div>
-      
+    <div className="max-w-4xl w-full mx-auto p-6">
       { !hideForm &&
-        (<form onSubmit={handleAddTransaction} className="bg-gray-200 z-1 p-6 rounded-3xl shadow-md w-lg top-25 mb-8 absolute left-205">
+        (<form onSubmit={handleAddTransaction} className="bg-gray-200 z-1 p-6 rounded-3xl shadow-md  ">
             <div className="flex justify-between" id="close">
             <button
           onClick={toggleForm}
