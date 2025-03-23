@@ -49,9 +49,9 @@ const AddExpenseForm = ({ hideForm, toggleForm, setExpenseTransactions }) => {
   };
 
   return (
-    <div className="max-w-4xl w-full mx-auto p-6">
+    <div className="max-w-4xl w-full mx-auto p-6 ">
       { !hideForm &&
-        (<form onSubmit={handleAddTransaction} className="bg-gray-200 z-1 p-6 rounded-3xl shadow-md  ">
+        (<form onSubmit={handleAddTransaction} className="bg-gray-200 z-1 p-6 rounded-3xl shadow-md max-w-lg w-full mx-auto ">
             <div className="flex justify-between" id="close">
             <button
           onClick={toggleForm}

@@ -46,7 +46,7 @@ const AddIncomeForm = ({ hideForm, toggleForm, setIncomeTransactions }) => {
       
 
       {hideForm ? "" :
-        <form onSubmit={handleAddTransaction} className="bg-gray-200 z-1 p-6 rounded-3xl shadow-md max-w-lg w-full mx-auto absolute">
+        <form onSubmit={handleAddTransaction} className="bg-gray-200 z-1 p-6 rounded-3xl shadow-md max-w-110 w-full w-lg mx-auto ">
           <div className="flex justify-between" id="close">
             <button
           onClick={toggleForm}

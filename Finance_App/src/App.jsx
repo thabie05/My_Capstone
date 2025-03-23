@@ -31,7 +31,7 @@ const App = () => {
   }, []);
 
   return (
-    <div className=" max-w-[1920px] mx-auto p-6 flex gap-6 ">
+    <div className=" max-w-[1920px] mx-auto p-6 flex gap-30 justify-center flex-wrap">
       <TotalAmount 
         incomeTransactions={incomeTransactions}
         expenseTransactions={expenseTransactions}
@@ -49,6 +49,7 @@ const App = () => {
         hideForm={hideExpenseForm}
       />
       
+      <div className="flex flex-wrap justify-center gap-0">
       <AddIncomeForm
         incomeTransactions={incomeTransactions}
         setIncomeTransactions={setIncomeTransactions}
@@ -62,6 +63,7 @@ const App = () => {
         hideForm={hideExpenseForm}
         toggleForm={toggleExpenseForm}
       />
+      </div>
       
 
       
