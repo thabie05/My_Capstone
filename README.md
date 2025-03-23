@@ -1,8 +1,6 @@
-# Expense & Income Tracker
+# Finance App
 
 A simple financial tracking application built with React to manage expenses and income with local storage persistence.
-
-![App Screenshot](./screenshot.png) <!-- Add your own screenshot here -->
 
 ## Features
 
