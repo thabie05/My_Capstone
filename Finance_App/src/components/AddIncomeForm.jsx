@@ -46,7 +46,7 @@ const AddIncomeForm = ({ hideForm, toggleForm, setIncomeTransactions }) => {
       
 
       {hideForm ? "" :
-        <form onSubmit={handleAddTransaction} className="bg-gray-200 z-1 p-6 rounded-3xl shadow-md max-w-110 w-full w-lg mx-auto ">
+        <form onSubmit={handleAddTransaction} className="bg-gray-200 z-1 p-6 rounded-3xl shadow-md min-w-md max-w-lg w-full  mx-auto ">
           <div className="flex justify-between" id="close">
             <button
           onClick={toggleForm}
@@ -63,7 +63,7 @@ const AddIncomeForm = ({ hideForm, toggleForm, setIncomeTransactions }) => {
               value={formIncome.name}
               name="name"
               id="name"
-              className="w-full p-2 border rounded text-black focus:text-black focus:none focus:outline-none border-solid border-2 border-gray-300"
+              className="w-full p-2 rounded text-black focus:text-black focus:none focus:outline-none border-solid border-2 border-gray-300"
               required
             />
           </div>
@@ -78,7 +78,7 @@ const AddIncomeForm = ({ hideForm, toggleForm, setIncomeTransactions }) => {
               value={formIncome.category}
               name="category"
               id="category"
-              className="w-full p-2 border rounded text-black focus:text-black focus:none focus:outline-none border-solid border-2 border-gray-300"
+              className="w-full p-2 rounded text-black focus:text-black focus:none focus:outline-none border-solid border-2 border-gray-300"
               required
             />
           </div>
@@ -91,7 +91,7 @@ const AddIncomeForm = ({ hideForm, toggleForm, setIncomeTransactions }) => {
               value={formIncome.date}
               name="date"
               id="date"
-              className="w-full p-2 border rounded text-gray-500 focus:text-gray-900 focus:none focus:outline-none border-solid border-2 border-gray-300"
+              className="w-full p-2 rounded text-gray-500 focus:text-gray-900 focus:none focus:outline-none border-solid border-2 border-gray-300"
               required
             />
           </div>
@@ -105,7 +105,7 @@ const AddIncomeForm = ({ hideForm, toggleForm, setIncomeTransactions }) => {
               name="amount"
               id="amount"
               step="0.01"
-              className="w-full p-2 border rounded text-black focus:text-black focus:none focus:outline-none border-solid border-2 border-gray-300"
+              className="w-full p-2 rounded text-black focus:text-black focus:none focus:outline-none border-solid border-2 border-gray-300"
               required
             />
           </div>

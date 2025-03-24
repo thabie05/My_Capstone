@@ -11,15 +11,15 @@ const TotalAmount = ({ incomeTransactions, expenseTransactions }) => {
   const totalSaved = totalIncome - totalExpense;
 
   return (
-    <div className="p-4 bg-gray-300 rounded-3xl shadow-lg mt-40 text-center  gap-20 flex flex-col basis-100">
-      <h3 className="text-2xl font-bold text-green-500 ">
-        Total Income: R{totalIncome.toFixed(2)}
+    <div className="totalAmount bg-linear-to-r from-[#536f8170] to-[#00000075] rounded-3xl shadow-lg mt-40 text-center p-10 gap-20 flex flex-col h-lg ">
+      <h3 className="text-2xl font-bold text-green-500">
+        Total Income:<br/> R{totalIncome.toFixed(2)}
       </h3>
-      <h3 className="text-2xl font-bold text-red-500 blur-none">
-        Total Expense: R{totalExpense.toFixed(2)}
+      <h3 className="text-2xl font-bold text-red-500">
+        Total Expense:<br/> R{totalExpense.toFixed(2)}
       </h3>
-      <h3 className="text-2xl font-bold text-blue-500">
-        Total Saved: R{totalSaved.toFixed(2)}
+      <h3 className="text-2xl font-bold text-blue-300">
+        Total Saved:<br/> R{totalSaved.toFixed(2)}
       </h3>
       
     </div>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { BrowserRouter as router, Routes, Route, Link } from "react-router-dom";
 import ExpenseList from "./components/ExpenseList";
 import TotalAmount from "./components/TotalAmount";
 import AddExpenseForm from "./components/AddExpenseForm";
@@ -31,7 +32,9 @@ const App = () => {
   }, []);
 
   return (
-    <div className=" max-w-[1920px] mx-auto p-6 flex gap-30 justify-center flex-wrap">
+    
+    <div className="flex flex-col gap-3 justify-center flex-wrap">
+      <div className="flex gap-30 justify-center flex-wrap">
       <TotalAmount 
         incomeTransactions={incomeTransactions}
         expenseTransactions={expenseTransactions}
@@ -48,8 +51,18 @@ const App = () => {
         toggleForm={toggleExpenseForm}
         hideForm={hideExpenseForm}
       />
+      </div>
       
-      <div className="flex flex-wrap justify-center gap-0">
+      
+      <div className="flex justify-center gap-0">
+
+      <AddExpenseForm
+        expenseTransactions={expenseTransactions}
+        setExpenseTransactions={setExpenseTransactions}
+        hideForm={hideExpenseForm}
+        toggleForm={toggleExpenseForm}
+      />
+
       <AddIncomeForm
         incomeTransactions={incomeTransactions}
         setIncomeTransactions={setIncomeTransactions}
@@ -57,12 +70,6 @@ const App = () => {
         toggleForm={toggleIncomeForm}
       />
       
-      <AddExpenseForm
-        expenseTransactions={expenseTransactions}
-        setExpenseTransactions={setExpenseTransactions}
-        hideForm={hideExpenseForm}
-        toggleForm={toggleExpenseForm}
-      />
       </div>
       
 

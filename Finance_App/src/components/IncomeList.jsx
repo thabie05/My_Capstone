@@ -4,7 +4,7 @@ const IncomeList = ({ transactions, hideForm, toggleForm }) => {
     <div>
       <div className="overflow-x-auto rounded-3xl shadow-lg mt-40 max-w-lg m-6 mx-auto">
         <table className="min-w-full divide-y divide-gray-900">
-          <thead className="bg-gray-900">
+          <thead className="bg-[#12222c70]">
             <tr>
               <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Name</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Category</th>
@@ -12,13 +12,13 @@ const IncomeList = ({ transactions, hideForm, toggleForm }) => {
               <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Amount</th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="bg-[#536f8170] divide-y divide-gray-200">
             {transactions.map((transaction, index) => (
               <tr key={index} className="hover:bg-gray-50">
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{transaction.name}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-100">{transaction.name}</td>
         
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{transaction.category}</td>
-                <td className="px-5 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">{transaction.category}</td>
+                <td className="px-5 py-4 whitespace-nowrap text-sm text-gray-400">
                   {new Date(transaction.date).toLocaleDateString()}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-green-500 font-medium">
@@ -35,11 +35,11 @@ const IncomeList = ({ transactions, hideForm, toggleForm }) => {
             )}
           </tbody>
         </table>
-        <div className="bg-gray-500">
+        <div className="bg-[#12243096] flex">
           <span className="relative left-45">{hideForm ? "Add" : ""}</span>
         { hideForm && <button
         onClick={toggleForm}
-        className="bg-blue-600 border-7 border-gray-500 bottom-1 size-15 text-center text-white relative left-50 py-2 px-4 rounded-full hover:bg-blue-700 transition-colors"
+        className="bg-blue-600 border-7 border-[#12243096] bottom-1 size-15 text-center text-white relative left-50 py-2 px-4 rounded-full hover:bg-blue-700 transition-colors"
         >
         +
         </button>}<span className="relative left-55">{hideForm ? "Income" : ""}</span>
