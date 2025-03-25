@@ -32,7 +32,9 @@ const Home = () => {
 
   return (
     
-    <div className="flex gap-30 justify-center">
+    <div>
+        <h1 className="text-4xl font-bold text-center">Expense Tracker</h1>
+        <div className="flex gap-30 max-w-[1920px] mx-auto flex-wrap justify-center">
       <TotalAmount 
         incomeTransactions={incomeTransactions}
         expenseTransactions={expenseTransactions}
@@ -54,7 +56,7 @@ const Home = () => {
           />
         </div>
       
-        <div className="flex flex-col gap-3 justify-center flex-wrap">
+        <div className="absolute left-160 top-100 flex gap-3 justify-center">
 
           <AddExpenseForm
             expenseTransactions={expenseTransactions}
@@ -74,10 +76,7 @@ const Home = () => {
 
       </div>
       
-      
-      
-      
-
+      </div>
       
     </div>
   );

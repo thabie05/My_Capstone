@@ -13,7 +13,7 @@ const ExpenseList = ({transactions, hideForm, toggleForm}) => {
           </thead>
           <tbody className="bg-[#252f53be] divide-y divide-gray-200">
             {transactions.map((transaction, index) => (
-              <tr key={index} className="hover:bg-gray-50">
+              <tr key={index} className="hover:bg-gray-700">
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-100">{transaction.name}</td>
         
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">{transaction.category}</td>
@@ -38,7 +38,7 @@ const ExpenseList = ({transactions, hideForm, toggleForm}) => {
           <span className="relative left-45">{hideForm ? "Add" : ""}</span>
         { hideForm && <button
         onClick={toggleForm}
-        className="bg-blue-600 border-7 border-gray-500 bottom-1 size-15 text-center text-white relative left-50 py-2 px-4 rounded-full hover:bg-blue-700 transition-colors"
+        className="bg-blue-600  bottom-1 size-15 text-center text-white relative left-50 py-2 px-4 rounded-full hover:bg-blue-700 transition-colors"
         >
         +
         </button>}<span className="relative left-55">{hideForm ? "Expense" : ""}</span>
