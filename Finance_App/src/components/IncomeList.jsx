@@ -2,9 +2,9 @@
 const IncomeList = ({ transactions, hideForm, toggleForm }) => {
   return (
     <div>
-      <div className="overflow-x-auto rounded-3xl shadow-lg mt-40 max-w-lg m-6 mx-auto">
+      <div className="overflow-x-auto rounded-3xl shadow-lg mt-40 max-w-lg m-6 mx-auto w-lg">
         <table className="min-w-full divide-y divide-gray-900">
-          <thead className="bg-[#12222c70]">
+          <thead className="bg-[#000000bd]">
             <tr>
               <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Name</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Category</th>
@@ -12,7 +12,7 @@ const IncomeList = ({ transactions, hideForm, toggleForm }) => {
               <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Amount</th>
             </tr>
           </thead>
-          <tbody className="bg-[#536f8170] divide-y divide-gray-200">
+          <tbody className="bg-[#252f53be] divide-y divide-gray-200">
             {transactions.map((transaction, index) => (
               <tr key={index} className="hover:bg-gray-50">
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-100">{transaction.name}</td>
@@ -35,7 +35,7 @@ const IncomeList = ({ transactions, hideForm, toggleForm }) => {
             )}
           </tbody>
         </table>
-        <div className="bg-[#12243096] flex">
+        <div className="bg-[#000000bd]">
           <span className="relative left-45">{hideForm ? "Add" : ""}</span>
         { hideForm && <button
         onClick={toggleForm}

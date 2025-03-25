@@ -11,7 +11,7 @@ const TotalAmount = ({ incomeTransactions, expenseTransactions }) => {
   const totalSaved = totalIncome - totalExpense;
 
   return (
-    <div className="totalAmount bg-linear-to-r from-[#536f8170] to-[#00000075] rounded-3xl shadow-lg mt-40 text-center p-10 gap-20 flex flex-col h-lg ">
+    <div className="totalAmount bg-linear-to-r from-[#434e55af] to-[#000000bd] ml-12 rounded-3xl shadow-lg mt-40 min-w-sm text-center p-10 gap-20 flex flex-col max-h-110 ">
       <h3 className="text-2xl font-bold text-green-500">
         Total Income:<br/> R{totalIncome.toFixed(2)}
       </h3>
