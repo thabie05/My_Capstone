@@ -88,15 +88,15 @@ const Overview = () => {
   return (
     <div>
       <h1 className='text-3xl font-bold text-center'>Overview</h1>
-        <div className='flex  items-center wx-100 justify-center gap-100 mt-20 max-w-1200'>
+        <div className='flex flex-wrap items-center wx-100 justify-center gap-50 mt-20 max-w-1200'>
           <div>
-            <Doughnut className='w-100' data={data} />
+            <Doughnut className='w-150 bg-[#000000bd] rounded-4xl p-10' data={data} />
           </div>
           <div>
-            <Bar className='w-100 bg-[#000000bd] b' data={data1} />
+            <Bar className='w-200 bg-[#000000bd] rounded-4xl' data={data1} />
           </div>
         </div>
-      <p className='text-center'>length of incomeTransactions: {totalIncome}</p>
+      <p className='text-center'></p>
     </div>
   )
 }
