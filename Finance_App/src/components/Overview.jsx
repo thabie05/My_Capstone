@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Doughnut } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js/auto';
+import { Doughnut, Bar, Line } from 'react-chartjs-2';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 
@@ -32,10 +32,10 @@ const Overview = () => {
       const totalSaved = totalIncome - totalExpense;
       
         const data = {
-          labels: ['Total Income', 'Total Expense', 'Total Saved'],
+          labels: [`Total Income R${totalIncome}`, `Total Expense R${totalExpense}`, `Total Saved R${totalSaved}`],
           datasets: [
             {
-              label: '# of Votes',
+              label: 'R',
               data: [totalIncome, totalExpense, totalSaved],
               backgroundColor: [
                 '#00ff40',
@@ -47,15 +47,55 @@ const Overview = () => {
                 '#ff0000',
                 '#0000ff',
               ],
+              hoverOffset: 4,
               borderWidth: 1,
             },
           ],
         };
+        const data1 = {
+          labels: expenseTransactions.map(transaction => transaction.name),
+          datasets: [
+            {
+              label: 'Expense',
+              data: expenseTransactions.map(transaction => parseFloat(transaction.amount)),
+              backgroundColor: [
+                '#222f40',
+                '#167000',
+                '#0747ff',
+                '#5ffd56',
+                '#17f199',
+                '#565226',
+                '#565656',
+                '#534656',
+                '#457656',
+                '#800656',
+                '#557898',
+                '#289877',
+              ],
+              borderColor: [
+                '#222f40',
+                '#167000',
+                '#0747ff',
+                '#5ffd56',
+                '#17f199',
+                '#565226',]
+              ,
+              borderWidth: 1,
+            },
+          ],
+        }
 
   return (
     <div>
       <h1 className='text-3xl font-bold text-center'>Overview</h1>
-      <Doughnut className='w-90 h-90 mx-auto' data={data} />
+        <div className='flex  items-center wx-100 justify-center gap-100 mt-20 max-w-1200'>
+          <div>
+            <Doughnut className='w-100' data={data} />
+          </div>
+          <div>
+            <Bar className='w-100 bg-[#000000bd] b' data={data1} />
+          </div>
+        </div>
       <p className='text-center'>length of incomeTransactions: {totalIncome}</p>
     </div>
   )
