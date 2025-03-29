@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js/auto';
-import { Doughnut, Bar, Line } from 'react-chartjs-2';
+import { Doughnut, Pie, Bar, Line } from 'react-chartjs-2';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 
@@ -83,16 +83,31 @@ const Overview = () => {
               borderWidth: 1,
             },
           ],
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+          plugins: {
+            legend: {
+              position: 'bottom',
+            },
+          },
         }
+        
 
   return (
     <div>
       <h1 className='text-3xl font-bold text-center'>Overview</h1>
         <div className='flex flex-wrap items-center wx-100 justify-center gap-50 mt-20 max-w-1200'>
           <div>
-            <Doughnut className='w-150 bg-[#000000bd] rounded-4xl p-10' data={data} />
+            <h2 className='text-center text-2xl mb-9 font-bold'>Total Income</h2>
+            <Doughnut className='w-110 bg-[#000000bd] rounded-4xl p-10' data={data} />
           </div>
           <div>
+            <h2 className='text-center text-2xl mb-9 font-bold'>Expenses in a bar graph</h2>
             <Bar className='w-200 bg-[#000000bd] rounded-4xl' data={data1} />
           </div>
         </div>

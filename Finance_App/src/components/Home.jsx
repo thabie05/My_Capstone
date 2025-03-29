@@ -4,6 +4,7 @@ import TotalAmount from "./TotalAmount";
 import AddExpenseForm from "./AddExpenseForm";
 import AddIncomeForm from "./AddIncomeForm";
 import IncomeList from "./IncomeList";
+import DateSelector from "./DateSelector";
 
 
 
@@ -16,6 +17,9 @@ const Home = () => {
   // State management for transactions
   const [incomeTransactions, setIncomeTransactions] = useState([]);
   const [expenseTransactions, setExpenseTransactions] = useState([]);
+  const [removeTransactions, setRemoveTransactions] = useState([]);
+
+  const [selectedDate, setSelectedDate] = useState(null);
 
   // Toggle functions
   const toggleIncomeForm = () => setHideIncomeForm(!hideIncomeForm);
@@ -30,26 +34,58 @@ const Home = () => {
     if (storedExpenses) setExpenseTransactions(JSON.parse(storedExpenses));
   }, []);
 
+  // Add filtered transactions logic
+  const filterTransactionsByDate = (transactions) => {
+    if (!selectedDate) return transactions;
+    
+    return transactions.filter(transaction => {
+      const transactionDate = new Date(transaction.date);
+      return (
+        transactionDate.getMonth() === selectedDate.getMonth() &&
+        transactionDate.getFullYear() === selectedDate.getFullYear()
+      );
+    });
+  };
+
+  // Add remove transaction functionality
+  const handleRemoveTransaction = (type, index) => {
+  if (type === 'income') {
+    const updated = incomeTransactions.filter((_, i) => i !== index);
+    setIncomeTransactions(updated);
+    localStorage.setItem("moneyIn", JSON.stringify(updated)); // Update storage
+  } else {
+    const updated = expenseTransactions.filter((_, i) => i !== index);
+    setExpenseTransactions(updated);
+    localStorage.setItem("moneyOut", JSON.stringify(updated)); // Update storage
+  }
+};
+
   return (
     
     <div>
         <h1 className="text-4xl font-bold text-center">Expense Tracker</h1>
         <div className="flex gap-30 max-w-[1920px] mx-auto flex-wrap justify-center">
-      <TotalAmount 
-        incomeTransactions={incomeTransactions}
-        expenseTransactions={expenseTransactions}
-      />
+          <div>
+          <DateSelector selectedDate={selectedDate} onDateChange={setSelectedDate} />
+            <TotalAmount 
+              incomeTransactions={incomeTransactions}
+              expenseTransactions={expenseTransactions}
+            />
+
+        </div>
       <div className="flex gap-3 justify-center flex-wrap">
 
         <div className="flex gap-30 justify-center flex-wrap">
           <IncomeList 
-            transactions={incomeTransactions}
+            transactions={filterTransactionsByDate(incomeTransactions)}
+            onRemove={(index) => handleRemoveTransaction('income', index)}
             setTransactions={setIncomeTransactions}
             toggleForm={toggleIncomeForm}
             hideForm={hideIncomeForm}
           />
           <ExpenseList 
-            transactions={expenseTransactions}
+            transactions={filterTransactionsByDate(expenseTransactions)}
+            onRemove={(index) => handleRemoveTransaction('expense', index)}
             setTransactions={setExpenseTransactions}
             toggleForm={toggleExpenseForm}
             hideForm={hideExpenseForm}

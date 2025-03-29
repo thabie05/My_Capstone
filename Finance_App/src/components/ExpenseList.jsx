@@ -1,28 +1,41 @@
-const ExpenseList = ({transactions, hideForm, toggleForm}) => {
+const ExpenseList = ({transactions, onRemove, hideForm, toggleForm, ...props }) => {
   return (
     <div>
-       <div className="overflow-x-auto rounded-3xl shadow-lg mt-40 max-w-lg m-6 mx-auto w-lg">
+       <div className="overflow-x-auto rounded-3xl shadow-lg mt-40 max-w-xl min-w-lg m-6 mx-auto ">
         <table className="min-w-full divide-y divide-gray-900">
           <thead className="bg-[#000000bd]">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Name</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Category</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Date</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Amount</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Name</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Category</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Date</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Amount</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">delete</th>
             </tr>
           </thead>
           <tbody className="bg-[#252f53be] divide-y divide-gray-200">
-            {transactions.map((transaction, index) => (
-              <tr key={index} className="hover:bg-gray-700">
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-100">{transaction.name}</td>
+      {transactions.map((transaction, index) => (
+        <tr key={index} className="hover:bg-gray-700">
+         
+          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-100">
+            
+            {transaction.name}
+          </td>
         
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">{transaction.category}</td>
-                <td className="px-5 py-4 whitespace-nowrap text-sm text-gray-400">
+                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-400">{transaction.category}</td>
+                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-400">
                   {new Date(transaction.date).toLocaleDateString()}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-red-500 font-medium">
                   -R{parseFloat(transaction.amount).toFixed(2)}
                 </td>
+                <td>
+          <button 
+              onClick={() => onRemove(index)}
+              className="ml-7 bg-red-600 text-white text-center px-2 py-0 rounded-full hover:bg-red-700 transition-colors"
+            >
+              X
+            </button>
+          </td>
               </tr>
             ))}
             {transactions.length === 0 && (
