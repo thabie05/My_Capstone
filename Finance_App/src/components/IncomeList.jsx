@@ -26,8 +26,8 @@ const IncomeList = ({ transactions, onRemove, hideForm, toggleForm, ...props }) 
                 <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-400">
                   {new Date(transaction.date).toLocaleDateString()}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-red-500 font-medium">
-                  -R{parseFloat(transaction.amount).toFixed(2)}
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-green-500 font-medium">
+                  R{parseFloat(transaction.amount).toFixed(2)}
                 </td>
                 <td>
           <button 

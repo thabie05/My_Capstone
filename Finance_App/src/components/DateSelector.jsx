@@ -8,10 +8,9 @@ const DateSelector = ({ selectedDate, onDateChange }) => {
   const maxDate = new Date();
 
   return (
-    <div className="date-selector text-center h-20">
+    <div className="date-selector text-center h-5">
       <h2 className="text-white mb-2">Filter by Month/Year</h2>
       <DatePicker
-        inline= {true}
         selected={selectedDate}
         onChange={onDateChange}
         dateFormat="MM/yyyy"
