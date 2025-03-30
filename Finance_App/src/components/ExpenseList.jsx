@@ -16,7 +16,7 @@ const ExpenseList = ({transactions, onRemove, hideForm, toggleForm, ...props }) 
       {transactions.map((transaction, index) => (
         <tr key={index} className="hover:bg-gray-700">
          
-          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-100">
+          <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-100">
             
             {transaction.name}
           </td>
@@ -40,7 +40,7 @@ const ExpenseList = ({transactions, onRemove, hideForm, toggleForm, ...props }) 
             ))}
             {transactions.length === 0 && (
               <tr>
-                <td colSpan="4" className="px-6 py-4 text-center text-gray-500">
+                <td colSpan="4" className="px-4 py-4 text-center text-gray-500">
                   No transactions found
                 </td>
               </tr>

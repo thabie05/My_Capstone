@@ -66,7 +66,10 @@ const Home = () => {
         <h1 className="text-4xl font-bold text-center">Expense Tracker</h1>
         <div className="flex gap-30 max-w-[1920px] mx-auto flex-wrap justify-center">
           <div>
-          <DateSelector selectedDate={selectedDate} onDateChange={setSelectedDate} />
+            <DateSelector 
+              selectedDate={selectedDate} 
+              onDateChange={setSelectedDate} 
+            />
             <TotalAmount 
               incomeTransactions={incomeTransactions}
               expenseTransactions={expenseTransactions}
