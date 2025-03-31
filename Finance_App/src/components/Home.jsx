@@ -62,10 +62,10 @@ const Home = () => {
 
   return (
     
-    <div>
-        <h1 className="text-4xl font-bold text-center">Expense Tracker</h1>
-        <div className="flex gap-30 max-w-[1920px] mx-auto flex-wrap justify-center">
-          <div>
+    <div className="container mx-auto p-4 md:p-6">
+        <h1 className="text-3xl sm:text-4xl font-bold text-center mb-6 md:mb-10">Thabie Finance App</h1>
+        <div className="flex flex-col lg:flex-row lg:gap-8">
+          <div className="w-full lg:w-1/4 lg:flex-shrink-0 mb-6 lg:mb-0">
             <DateSelector 
               selectedDate={selectedDate} 
               onDateChange={setSelectedDate} 
@@ -76,9 +76,17 @@ const Home = () => {
             />
 
         </div>
-      <div className="flex gap-3 justify-center flex-wrap">
+      <div className="w-full lg:flex-grow">
 
-        <div className="flex gap-30 justify-center flex-wrap">
+        <div className="flex flex-wrap gap-6 md:gap-8">
+        <div className="w-full">
+        <AddIncomeForm
+            incomeTransactions={incomeTransactions}
+            setIncomeTransactions={setIncomeTransactions}
+            hideForm={hideIncomeForm}
+            toggleForm={toggleIncomeForm}
+          />
+
           <IncomeList 
             transactions={filterTransactionsByDate(incomeTransactions)}
             onRemove={(index) => handleRemoveTransaction('income', index)}
@@ -86,17 +94,9 @@ const Home = () => {
             toggleForm={toggleIncomeForm}
             hideForm={hideIncomeForm}
           />
-          <ExpenseList 
-            transactions={filterTransactionsByDate(expenseTransactions)}
-            onRemove={(index) => handleRemoveTransaction('expense', index)}
-            setTransactions={setExpenseTransactions}
-            toggleForm={toggleExpenseForm}
-            hideForm={hideExpenseForm}
-          />
-        </div>
-      
-        <div className="absolute left-160 top-100 flex gap-3 justify-center">
-
+          </div>
+          <div className="w-full">
+        
           <AddExpenseForm
             expenseTransactions={expenseTransactions}
             setExpenseTransactions={setExpenseTransactions}
@@ -104,12 +104,17 @@ const Home = () => {
             toggleForm={toggleExpenseForm}
           />
 
-          <AddIncomeForm
-            incomeTransactions={incomeTransactions}
-            setIncomeTransactions={setIncomeTransactions}
-            hideForm={hideIncomeForm}
-            toggleForm={toggleIncomeForm}
+            <ExpenseList 
+            transactions={filterTransactionsByDate(expenseTransactions)}
+            onRemove={(index) => handleRemoveTransaction('expense', index)}
+            setTransactions={setExpenseTransactions}
+            toggleForm={toggleExpenseForm}
+            hideForm={hideExpenseForm}
           />
+
+          
+          </div>
+        
 
         </div>
 

@@ -11,20 +11,25 @@ const TotalAmount = ({ incomeTransactions, expenseTransactions }) => {
   const totalSaved = totalIncome - totalExpense;
 
   return (
-    <div className="totalAmount  ml-12 mt-40 min-w-sm text-center gap-20 flex flex-col max-h-110 ">
-      <div className="bg-linear-to-r from-[#434e55af] flex flex-col items-center justify-center gap-10 to-[#000000bd]  w-76 h-110 rounded-3xl shadow-lg bottom-76">
-      <h3 className="text-2xl font-bold pt-8 text-green-500">
+    <div className="totalAmount p-4 w-full">
+      <div className="bg-gradient-to-r from-[#434e55af] to-[#000000bd] w-full max-w-sm mx-auto rounded-3xl shadow-lg p-6">
+      <div className="flex flex-col items-center justify-center gap-4 text-center">
+      <h3 className="text-xl font-bold md:text-2xl text-green-500">
         Total Income:<br/> R{totalIncome.toFixed(2)}
       </h3>
-      <h3 className="text-2xl font-bold text-red-500">
+      <hr className="w-3/4 border-gray-600 my-1" />
+      <h3 className="text-xl md:text-2xl font-bold text-red-500">
         Total Expense:<br/> R{totalExpense.toFixed(2)}
       </h3>
-      <h3 className="text-2xl font-bold pb-8 text-blue-300">
-        Total Saved:<br/> R{totalSaved.toFixed(2)}
+      <hr className="w-3/4 border-gray-600 my-1" />
+      <h3 className="text-xl md:text-2xl font-bold pb-8 text-blue-300">
+        Total Saved:<br/> <span className={totalSaved >= 0 ? 'text-blue-300' : 'text-orange-400'}>
+              R{totalSaved.toFixed(2)}
+            </span>
       </h3>
       </div>
       
-      
+      </div>
     </div>
   );
 };
