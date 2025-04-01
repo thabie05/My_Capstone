@@ -49,15 +49,15 @@ const AddExpenseForm = ({ hideForm, toggleForm, setExpenseTransactions }) => {
   };
 
   return (
-    <div className="max-w-4xl w-full mx-auto p-6">
+    <div className="w-full max-w-lg mx-auto   mb-6">
       { !hideForm &&
-        (<form onSubmit={handleAddTransaction} className="bg-[#252f53be] z-1 p-6 rounded-3xl shadow-md min-w-md max-w-lg w-full mx-auto ">
-            <div className="flex justify-between" id="close">
+        (<form onSubmit={handleAddTransaction} className="bg-[#252f53be] p-4 md:p-6 rounded-3xl shadow-md w-full">
+            <div className="flex justify-between items-center mb-4" id="close">
             <button
           onClick={toggleForm}
-          className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors"
+          className="bg-blue-600 text-white py-1 px-3 rounded-full text-sm hover:bg-blue-700 transition-colors"
         >Close</button>
-        <h3 className="text-lg font-medium text-gray-100 mb-1">Add Expense</h3>
+        <h3 className="text-lg font-medium text-gray-100">Add Expense</h3>
         </div>
          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
            <div>
@@ -68,7 +68,7 @@ const AddExpenseForm = ({ hideForm, toggleForm, setExpenseTransactions }) => {
                value={formData.name}
                name="name"
                id="name"
-               className="w-full p-2 rounded text-black focus:text-black focus:none focus:outline-none border-solid border-2 border-gray-300"
+               className="w-full p-2 rounded text-black focus:text-black focus:ring-2 focus:ring-blue-500 focus:outline-none border border-gray-300"
                required
              />
            </div>
@@ -81,7 +81,7 @@ const AddExpenseForm = ({ hideForm, toggleForm, setExpenseTransactions }) => {
                value={formData.category}
                name="category"
                id="category"
-               className="w-full p-2 rounded text-black focus:text-black focus:none focus:outline-none border-solid border-2 border-gray-300"
+               className="w-full p-2 rounded text-black focus:text-black focus:ring-2 focus:ring-blue-500 focus:outline-none border border-gray-300"
                required
              />
            </div>
@@ -94,7 +94,7 @@ const AddExpenseForm = ({ hideForm, toggleForm, setExpenseTransactions }) => {
                value={formData.date}
                name="date"
                id="date"
-               className="w-full p-2 rounded text-gray-500 focus:text-gray-900 focus:none focus:outline-none border-solid border-2 border-gray-300"
+               className="w-full p-2 rounded text-black focus:text-black focus:ring-2 focus:ring-blue-500 focus:outline-none border border-gray-300"
                required
              />
            </div>
@@ -108,7 +108,7 @@ const AddExpenseForm = ({ hideForm, toggleForm, setExpenseTransactions }) => {
                name="amount"
                id="amount"
                step="0.01"
-               className="w-full p-2 rounded text-black focus:text-black focus:none focus:outline-none border-solid border-2 border-gray-300"
+               className="w-full p-2 rounded text-black focus:text-black focus:ring-2 focus:ring-blue-500 focus:outline-none border border-gray-300"
                required
              />
            </div>

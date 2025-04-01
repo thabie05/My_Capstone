@@ -46,8 +46,8 @@ const IncomeList = ({ transactions, onRemove, hideForm, toggleForm, ...props }) 
             ))}
             {transactions.length === 0 && (
               <tr>
-                <td colSpan="4" className="px-4 py-4 text-center text-gray-500">
-                  No transactions found
+                <td colSpan="5" className="px-4 py-4 text-center text-gray-500">
+                  No Income transactions found
                 </td>
               </tr>
             )}
@@ -55,7 +55,7 @@ const IncomeList = ({ transactions, onRemove, hideForm, toggleForm, ...props }) 
         </table>
         </div>
         <div className="bg-[#000000bd] p-3 flex justify-center items-center">
-          <span className="">{hideForm ? "Add " : "Adding ..."}</span>
+          <span className="">{hideForm ? "Add " : "Adding Income..."}</span>
         { hideForm && <button
         onClick={toggleForm}
         className="bg-blue-600  bottom-1 size-15 text-center text-white py-2 px-4 rounded-full hover:bg-blue-700 transition-colors"

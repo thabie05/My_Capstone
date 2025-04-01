@@ -17,7 +17,7 @@ const DateSelector = ({ selectedDate, onDateChange }) => {
         maxDate={maxDate}
         showMonthYearPicker
         showFullMonthYearPicker
-        className="p-2 rounded-lg bg-gray-700 text-white border border-gray-600 w-full max-w-xs mx-auto focus:ring-2 focus:ring-blue-500 focus:outline-none"
+        className="p-2 rounded-lg bg-gray-700 text-center text-white border border-gray-600 w-full max-w-xs mx-auto focus:ring-2 focus:ring-blue-500 focus:outline-none"
         placeholderText="Select Month/Year"
       />
       <br />
