@@ -73,6 +73,7 @@ const Home = () => {
             <TotalAmount 
               incomeTransactions={incomeTransactions}
               expenseTransactions={expenseTransactions}
+              selectedDate={selectedDate}
             />
 
         </div>
