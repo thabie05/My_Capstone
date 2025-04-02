@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, BrowserRouter } from "react-rou
 import Home from "./components/Home"
 import Navbar from "./components/Navbar"
 import Overview from "./components/Overview"
+import Footer from "./components/Footer"
 
 
 
@@ -13,6 +14,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/overview" element={<Overview />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   )
 }
