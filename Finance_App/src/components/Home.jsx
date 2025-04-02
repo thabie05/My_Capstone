@@ -62,7 +62,7 @@ const Home = () => {
 
   return (
     
-    <div className="container mx-auto p-4 md:p-6">
+    <div className="container mx-auto p-4 md:p-6 text-white rounded-2xl shadow-lg mt-8 mb-8">
         <h1 className="text-3xl sm:text-4xl font-bold text-center mb-6 md:mb-10">Track My Expenses</h1>
         <div className="flex flex-col lg:flex-row lg:gap-8">
           <div className="w-full lg:w-1/4 lg:flex-shrink-0 mb-6 lg:mb-0">
@@ -79,8 +79,8 @@ const Home = () => {
         </div>
       <div className="w-full lg:flex-grow">
 
-        <div className="flex md:flex-nowrap flex-wrap gap-6 md:gap-8">
-        <div className="md:w-full w-lg flex-grow">
+        <div className="flex gap-6 md:gap-8">
+        <div className="w-full">
         <AddIncomeForm
             incomeTransactions={incomeTransactions}
             setIncomeTransactions={setIncomeTransactions}
