@@ -33,35 +33,38 @@ const Overview = () => {
       
         const data = {
           labels: [
-            `Total Income R${totalIncome.toFixed(2)}`, 
             `Total Expense R${totalExpense.toFixed(2)}`, 
             `Total Saved R${totalSaved.toFixed(2)}`
           ],
           datasets: [
             {
               label: 'R',
-              data: [totalIncome, totalExpense, totalSaved],
+              data: [ totalExpense, totalSaved],
               backgroundColor: [
-                '#00ff40',
-                '#ff0000',
-                '#0000ff',
+                '#EF4444',
+                '#10B981',
               ],
               borderColor: [
-                '#00ff40',
-                '#ff0000',
-                '#0000ff',
+                '#DC2626',
+                '#059669',
               ],
               hoverOffset: 4,
               borderWidth: 1,
             },
           ],
         };
+        const expensesByCategory = expenseTransactions.reduce((acc, transaction) => {
+          const category = transaction.category;
+          acc[category] = (acc[category] || 0) + parseFloat(transaction.amount);
+          return acc;
+        }, {});
+        const sortedCategories = Object.entries(expensesByCategory).sort((a, b) => b[1] - a[1]);
         const data1 = {
-          labels: expenseTransactions.map(transaction => transaction.name),
+          labels: sortedCategories.map(([category]) => category),
           datasets: [
             {
               label: 'Expense',
-              data: expenseTransactions.map(transaction => parseFloat(transaction.amount)),
+              data: sortedCategories.map(([, amount]) => amount),
               backgroundColor: [
                 '#222f40',
                 '#167000',
@@ -92,12 +95,12 @@ const Overview = () => {
     // --- Chart Options (Common & Specific) ---
     const commonChartOptions = {
         responsive: true,
-        maintainAspectRatio: false, // Crucial for controlling height via container div
+        maintainAspectRatio: false,
         plugins: {
             legend: {
                 position: 'bottom',
                 labels: {
-                    color: '#E5E7EB', // Tailwind gray-200
+                    color: '#E5E7EB',
                     padding: 15,
                     font: { size: 12 }
                 }
@@ -118,8 +121,8 @@ const Overview = () => {
             ...commonChartOptions.plugins,
             title: {
                 display: true,
-                text: 'Income vs. Expense Breakdown',
-                color: '#F9FAFB', // Tailwind gray-50
+                text: `Total Income R${totalIncome.toFixed(2)}`, 
+                color: '#F9FAFB',
                 font: { size: 16, weight: '600' },
                 padding: { top: 10, bottom: 20 }
             }
@@ -131,11 +134,11 @@ const Overview = () => {
         scales: {
             y: {
                 beginAtZero: true,
-                ticks: { color: '#9CA3AF' }, // Tailwind gray-400
-                grid: { color: 'rgba(156, 163, 175, 0.2)' } // Tailwind gray-400 with alpha
+                ticks: { color: '#9CA3AF' },
+                grid: { color: 'rgba(156, 163, 175, 0.2)' } 
             },
             x: {
-                ticks: { color: '#D1D5DB' }, // Tailwind gray-300
+                ticks: { color: '#D1D5DB' },
                 grid: { display: false }
             }
         },
@@ -144,7 +147,7 @@ const Overview = () => {
             title: {
                 display: true,
                 text: 'Expenses by Category',
-                color: '#F9FAFB', // Tailwind gray-50
+                color: '#F9FAFB',
                 font: { size: 16, weight: '600' },
                 padding: { top: 10, bottom: 20 }
             }
