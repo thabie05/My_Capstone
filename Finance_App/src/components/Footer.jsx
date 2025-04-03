@@ -24,17 +24,17 @@ const Footer = () => {
                 <a href="https://www.facebook.com/FE.Dev.Thabelo" 
                 target="_blank" 
                 rel="noopener noreferrer"  
-                className='bg-gray-300 h-10 w-10 flex items-center justify-center text-3xl text-[#252f53be] hover:bg-[#616d96be] hover:text-white transition-all duration-300 ease-in text-center rounded-full p-2'
+                className='bg-gray-300 h-10 w-10 flex items-center justify-center text-3xl text-[#252f53] hover:bg-[#616d96be] hover:text-white transition-all duration-300 ease-in text-center rounded-full p-2'
                 ><i className="fa fa-facebook" ></i></a>
                 <a href="https://x.com/Thabelo_SA" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className='bg-gray-300 h-10 w-10 flex items-center justify-center text-3xl text-[#252f53be] hover:bg-[#616d96be] hover:text-white transition-all duration-300 ease-in text-center rounded-full p-2'
+                className='bg-gray-300 h-10 w-10 flex items-center justify-center text-3xl text-[#252f53] hover:bg-[#616d96be] hover:text-white transition-all duration-300 ease-in text-center rounded-full p-2'
                 ><i className="fa fa-twitter" ></i></a>
                 <a href="https://github.com/thabie05/My_Capstone.git" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className='bg-gray-300 h-10 w-10 flex items-center justify-center text-3xl text-[#252f53be] hover:bg-[#616d96be] hover:text-white transition-all duration-300 ease-in text-center rounded-full p-2'
+                className='bg-gray-300 h-10 w-10 flex items-center justify-center text-3xl text-[#252f53] hover:bg-[#616d96be] hover:text-white transition-all duration-300 ease-in text-center rounded-full p-2'
                 ><i className="fa fa-github" ></i></a>
               </div>
             </div>

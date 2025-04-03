@@ -10,10 +10,10 @@ const Navbar = () => {
           <span>Track My Expenses</span>
         </div>
         <nav className="gap-4 md:gap-10 flex items-center text-sm md:text-base">
-          <Link className="text-white font-bold focus:text-blue-300 hover:text-blue-300 focus:scale-125 hover:scale-125 hover:transition-all duration-300 ease-in" to="/"><i className="fa fa-home"> Home</i></Link>
-          <Link className="text-white font-bold focus:text-blue-300 hover:text-blue-300 focus:scale-125 hover:scale-125 hover:transition-all duration-300 ease-in" to="/Overview">Overview</Link>
-          <Link className="text-white font-bold focus:text-blue-300 hover:text-blue-300 focus:scale-125 hover:scale-125 hover:transition-all duration-300 ease-in" to="/about">About</Link>
-          <Link className="text-white font-bold focus:text-blue-300 hover:text-blue-300 focus:scale-125 hover:scale-125 hover:transition-all duration-300 ease-in" to="/User">User</Link>
+          <Link className="text-white font-bold focus:text-blue-300 hover:text-blue-300 focus:scale-125 hover:scale-125 hover:transition-all duration-300 ease-in" to="/"><i className="fa fa-home"></i> Home</Link>
+          <Link className="text-white font-bold focus:text-blue-300 hover:text-blue-300 focus:scale-125 hover:scale-125 hover:transition-all duration-300 ease-in" to="/Overview"><i className="fa fa-bar-chart-o"></i> Overview</Link>
+          <Link className="text-white font-bold focus:text-blue-300 hover:text-blue-300 focus:scale-125 hover:scale-125 hover:transition-all duration-300 ease-in" to="/about"><i className="fa fa-info-circle"></i>  About</Link>
+          <Link className="text-white font-bold focus:text-blue-300 hover:text-blue-300 focus:scale-125 hover:scale-125 hover:transition-all duration-300 ease-in" to="/User"><i className="fa fa-user"></i> User</Link>
         </nav>
       </div>
     );
