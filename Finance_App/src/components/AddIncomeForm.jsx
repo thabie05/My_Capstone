@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const AddIncomeForm = ({ hideForm, toggleForm, setIncomeTransactions }) => {
   const [formIncome, setFormIncome] = useState({

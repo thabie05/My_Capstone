@@ -62,7 +62,7 @@ const Home = () => {
 
   return (
     
-    <div className="container mx-auto p-4 md:p-6 text-white rounded-2xl shadow-lg mt-8 mb-8">
+    <div className="container mx-auto p-4 md:p-6 text-white rounded-2xl bg-[#12182bab] shadow-lg mt-8 mb-8">
         <div className="flex flex-col lg:flex-row lg:gap-8">
           <div className="w-full lg:w-1/4 lg:flex-shrink-0 mb-6 lg:mb-0">
             <DateSelector 

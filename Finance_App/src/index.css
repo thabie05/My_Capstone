@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-
 body::after {
   content: "";
   position: fixed;
@@ -22,23 +21,4 @@ body {
   background: url("./assets/images/Financial.webp") no-repeat center center fixed;
   background-size: cover;
   color: white;
-}
-
-.custom-datepicker .react-datepicker__month {
-  display: none;
-}
-
-.custom-datepicker .react-datepicker__day,
-.custom-datepicker .react-datepicker__day-name {
-  display: none;
-}
-
-.custom-datepicker .react-datepicker {
-  padding: 0;
-  border: none;
-}
-
-.custom-datepicker .react-datepicker__month-container {
-  width: 100%;
-  padding: 0;
 }
