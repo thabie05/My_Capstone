@@ -63,29 +63,32 @@ const Overview = () => {
           labels: sortedCategories.map(([category]) => category),
           datasets: [
             {
-              label: 'Expense',
+              label: 'Total Spent per Category',
               data: sortedCategories.map(([, amount]) => amount),
               backgroundColor: [
-                '#222f40',
-                '#167000',
-                '#0747ff',
-                '#5ffd56',
-                '#17f199',
-                '#565226',
-                '#565656',
-                '#534656',
-                '#457656',
-                '#800656',
-                '#557898',
-                '#289877',
-              ],
-              borderColor: [
-                '#222f40',
-                '#167000',
-                '#0747ff',
-                '#5ffd56',
-                '#17f199',
-                '#565226',]
+                    '#ef4444b3',   
+                    '#f97316b3',  
+                    '#eab308b3',   
+                    '#84cc16b3', 
+                    '#22c55eb3',   
+                    '#10b981b3',  
+                    '#14b8a6b3',  
+                    '#3b82f6b3',  
+                    '#8b5cf6b3',  
+                    '#d946efb3',
+                ],
+                borderColor: [ 
+                  '#dc2626',
+                  '#f97316',
+                  '#ca8a04',
+                  '#65a30d',
+                  '#16a34a',
+                  '#059669',
+                  '#0f766e',
+                  '#2563eb',
+                  '#7c3aed',
+                  '#c026d3',
+                ]
               ,
               borderWidth: 1,
             },
@@ -155,7 +158,7 @@ const Overview = () => {
     };
 
   return (
-    <div className="container mx-auto my-15 px-4 py-8">
+    <div className="container bg-[#12182bab] rounded-2xl shadow-lg mx-auto my-15 px-4 py-8">
       <h1 className='text-3xl font-bold text-center mb-8'>Financial Overview</h1>
         <div className='grid grid-cols-1 md:grid-cols-2 my-20 gap-8'>
           <div className='bg-[#000000bd] rounded-2xl p-6 shadow-xl'>
