@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-
 const AddExpenseForm = ({ hideForm, toggleForm, setExpenseTransactions }) => {
 
    // State management for form fields

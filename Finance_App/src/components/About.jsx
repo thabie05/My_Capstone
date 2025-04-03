@@ -1,6 +1,3 @@
-// About.jsx
-import React from 'react';
-
 const About = () => {
   return (
     <div className="min-h-screen text-gray-100 p-8">

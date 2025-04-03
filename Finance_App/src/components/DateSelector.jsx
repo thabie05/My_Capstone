@@ -1,7 +1,7 @@
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-
+// The selected date is passed as a prop, and the onDateChange function is called when the user selects a new date
 const DateSelector = ({ selectedDate, onDateChange }) => {
   const minDate = new Date(2000, 0); // Reasonable minimum date
   const maxDate = new Date();

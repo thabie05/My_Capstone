@@ -2,6 +2,7 @@
 
 body::after {
   content: "";
+  position: fixed;
   margin: 0 auto;
   z-index: -1;
   background: linear-gradient(

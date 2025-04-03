@@ -1,9 +1,5 @@
-// User.jsx
-import React from 'react';
-
 const User = () => {
-  // Sample user data - replace with actual data from your app
-  const user = {
+  const userInfo = {
     name: "Thabelo Tshishonga",
     email: "Thabelo.Tshishonga@gmail.com",
     joined: "March 2025",
@@ -28,9 +24,9 @@ const User = () => {
               className="w-32 h-32 rounded-full border-4 border-blue-600"
             />
             <div className="text-center md:text-left">
-              <h2 className="text-3xl font-bold mb-2">{user.name}</h2>
-              <p className="text-gray-400">{user.email}</p>
-              <p className="text-gray-400">Member since {user.joined}</p>
+              <h2 className="text-3xl font-bold mb-2">{userInfo.name}</h2>
+              <p className="text-gray-400">{userInfo.email}</p>
+              <p className="text-gray-400">Member since {userInfo.joined}</p>
             </div>
           </div>
 
@@ -40,15 +36,15 @@ const User = () => {
               <dl className="space-y-3">
                 <div>
                   <dt className="text-gray-400">Full Name</dt>
-                  <dd className="font-medium">{user.name}</dd>
+                  <dd className="font-medium">{userInfo.name}</dd>
                 </div>
                 <div>
                   <dt className="text-gray-400">Email Address</dt>
-                  <dd className="font-medium">{user.email}</dd>
+                  <dd className="font-medium">{userInfo.email}</dd>
                 </div>
                 <div>
                   <dt className="text-gray-400">Member Since</dt>
-                  <dd className="font-medium">{user.joined}</dd>
+                  <dd className="font-medium">{userInfo.joined}</dd>
                 </div>
               </dl>
             </div>
@@ -58,16 +54,16 @@ const User = () => {
               <dl className="space-y-3">
                 <div>
                   <dt className="text-gray-400">Currency</dt>
-                  <dd className="font-medium">{user.preferences.currency}</dd>
+                  <dd className="font-medium">{userInfo.preferences.currency}</dd>
                 </div>
                 <div>
                   <dt className="text-gray-400">Theme</dt>
-                  <dd className="font-medium">{user.preferences.theme}</dd>
+                  <dd className="font-medium">{userInfo.preferences.theme}</dd>
                 </div>
                 <div>
                   <dt className="text-gray-400">Notifications</dt>
                   <dd className="font-medium">
-                    {user.preferences.notifications ? "Enabled" : "Disabled"}
+                    {userInfo.preferences.notifications ? "Enabled" : "Disabled"}
                   </dd>
                 </div>
               </dl>

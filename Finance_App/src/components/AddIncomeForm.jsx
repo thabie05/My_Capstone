@@ -8,6 +8,7 @@ const AddIncomeForm = ({ hideForm, toggleForm, setIncomeTransactions }) => {
     date: "",
   });
 
+  //update all input fields state when input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormIncome((prevData) => ({
@@ -16,6 +17,7 @@ const AddIncomeForm = ({ hideForm, toggleForm, setIncomeTransactions }) => {
     }));
   };
 
+  //Submit the form and add a new transaction to the list of transactions and display them in the income list
   const handleAddTransaction = (e) => {
     e.preventDefault();
     const newIncome = {
@@ -25,12 +27,15 @@ const AddIncomeForm = ({ hideForm, toggleForm, setIncomeTransactions }) => {
       date: formIncome.date,
     };
     
+    //this is to update the list of transactions with the new transaction
+    //and also update the local storage with the new transaction
     setIncomeTransactions((prevTransactions) => {
       const updatedIncome = [...prevTransactions, newIncome];
       localStorage.setItem("moneyIn", JSON.stringify(updatedIncome));
       return updatedIncome;
     });
 
+    //this is to reset the input fields after adding a transaction
     setFormIncome({
       name: "",
       amount: "",
