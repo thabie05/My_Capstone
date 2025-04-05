@@ -1,82 +1,107 @@
-# Finance App
+# Track My Expenses 💰 [![React](https://img.shields.io/badge/React-18+-61DAFB?logo=react&logoColor=white)](https://react.dev/) [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.1-06B6D4?logo=tailwind-css)](https://tailwindcss.com/) [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-A simple financial tracking application built with React to manage expenses and income with local storage persistence.
+A comprehensive financial tracking application with advanced visualization features, built with React and Tailwind CSS.
 
-## Installation
+![App Screenshot](./Screenshot.png) 
+---
 
-1. **Prerequisites**
-   - Node.js (v14+)
-   - npm (v6+)
+## Features ✨
 
+-   **Dual Tracking**: Separate management for income and expenses.
+-   **Data Persistence**: Local storage integration for session continuity.
+-   **Financial Insights**: Interactive charts and graphs (Doughnut, Bar).
+-   **Advanced Filtering**: Date-range filtering with month/year picker.
+-   **Responsive UI**: Mobile-first design implemented with Tailwind CSS.
+-   **Transaction Management**:
+    -   Add/remove transactions with categories.
+    -   Automatic total calculations.
+-   **Dark Mode**: Built-in dark theme support for comfortable viewing.
 
-## Features
+---
 
-- Add expenses and income with name, amount, category, and date
-- Separate tracking for income and expenses
-- Local storage for data persistence
-- Automatic total calculations
-- Responsive UI with Tailwind CSS
-- Toggleable form buttons
-- Date picker for transactions
-- Category tagging system
+## Installation 🛠️
 
-## Usage
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/yourusername/finance-app.git](https://github.com/yourusername/finance-app.git)
+    cd finance-app
+    ```
 
-**Adding Transactions**
-1. Click the "+ Expense" button to add new expenses
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
 
-2. Click the "+ Income" button to add new income
+3.  **Start the development server:**
+    ```bash
+    npm run dev
+    ```
+    The application should now be running on your local development server (usually `http://localhost:5173` or similar).
 
-3. Fill in the form fields:
+4.  **Build for production:**
+    ```bash
+    npm run build
+    ```
+    This command bundles the application for deployment.
 
-   - Name: Transaction description
+---
 
-   - Amount: Transaction value
+## Usage 📖
 
-   - Category: Transaction category (e.g., Food, Salary)
+**Adding Transactions:**
 
-   - Date: Transaction date
+1.  Click the `+ Income` or `+ Expense` button.
+2.  Fill in the form fields:
+    * **Name:** A description of the transaction (e.g., "Groceries", "Salary").
+    * **Amount:** The numerical value (e.g., `250.00`).
+    * **Category:** Select or create a relevant category (e.g., "Food", "Utilities", "Income").
+    * **Date:** Choose the date using the calendar picker or enter it manually.
+3.  Click the "Add +" button to save the transaction.
 
-4. Click "Add +" to save
+**Key Interactions:**
 
-**Viewing Transactions**
-- Expenses appear in red with "-" prefix
+-   **Filter Transactions:** Use the date range picker located in the sidebar to filter transactions by specific months or years.
+-   **Delete Transactions:** Click the red "X" button next to any transaction entry in the list to remove it.
+-   **View Insights:** Navigate to the "Overview" section to see visual reports and charts summarizing your financial data.
 
-- Income appears in green with "+" prefix
+---
 
-- Transactions sorted by date
+## Component Structure 🧩
 
-- Totals displayed in separate cards
+```text
+src/
+├── components/
+│   ├── AddExpenseForm.jsx
+│   ├── AddIncomeForm.jsx
+│   ├── DateSelector.jsx
+│   ├── ExpenseList.jsx
+│   ├── IncomeList.jsx
+│   ├── TotalAmount.jsx
+│   ├── Overview.jsx       # Contains chart components
+│   ├── Navbar.jsx
+│   └── Footer.jsx
+├── App.jsx                # Main application component with routing
+├── main.jsx               # Entry point of the React application
+└── index.css          # Global styles and Tailwind imports
+````
+---
+## Technologies ⚙️
+-  Frontend: React 18+, React Router 6
+-  Styling: Tailwind CSS 4.1
+-  Visualization: Chart.js 4.4+, react-chartjs-2, react-datepicker
+-  State Management: React Hooks (useState, useEffect, useContext)
+-  Build Tool: Vite 4+
+-  Persistence: Browser Local Storage
+---
+## Acknowledgements 🙏
+-  React Icons
+-  Chart.js & react-chartjs-2
+-  Tailwind CSS community
+-  Google Search (AI Financial Advisor 🤖)
+---
+## Contact 📧
+Thabelo Tshishonga
 
-**Managing Data**
-- All data persists automatically in local storage
-
-- Close forms using the "Close" button
-
-- Empty state shows "No transactions found"
-
- ## Components Structure
-src/  
-├── components/  
-│   ├── AddExpenseForm.jsx  
-│   ├── AddIncomeForm.jsx  
-│   ├── ExpenseList.jsx  
-│   ├── TotalAmount.jsx  
-│   └── TotalIncome.jsx  
-├── App.jsx  
-└── main.jsx  
-
-## Technologies Used
-- React (v18+)
-
-- Tailwind CSS
-
-- Local Storage API
-
-- HTML5 Date Input
-
-- ES6 Features
-
-- Functional Components
-
-- React Hooks (useState, useEffect)
+-  📧 Email: Thabelo.Tshishonga@gmail.com
+-  🐦 Twitter: @Thabelo_SA
+---
