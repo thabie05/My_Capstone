@@ -24,7 +24,7 @@ const Navbar = () => {
           <span>Track My Expenses</span>
         </div>
         <div className="md:hidden flex flex-col items-center ml-auto" onClick={toggleMobileMenu}>
-          <i className={`fa-solid fa-${moblieActive ? "xmark" : "bars"} text-white text-2xl`}></i>
+          <i className={`fa-solid fa-${moblieActive ? "xmark" : "bars"} text-white text-2xl hover:text-blue-300 hover:scale-125 hover:transition-all duration-300 ease-in`}></i>
         </div>
         </div>
         <div>
