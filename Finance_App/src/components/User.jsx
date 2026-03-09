@@ -1,14 +1,25 @@
+// components/User.js
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+
 const User = () => {
-  const userInfo = {
-    name: "Thabelo Tshishonga",
-    email: "Thabelo.Tshishonga@gmail.com",
-    joined: "March 2025",
-    avatar: "https://via.placeholder.com/150",
-    preferences: {
-      currency: "ZAR",
-      theme: "Dark",
-      notifications: true
-    }
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  if (!user) {
+    return <div className="text-white p-8">Loading...</div>;
+  }
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
+
+  // Default preferences – you could store these in user state later
+  const preferences = {
+    currency: "ZAR",
+    theme: "Dark",
+    notifications: true
   };
 
   return (
@@ -24,9 +35,9 @@ const User = () => {
               className="w-32 h-32 rounded-full border-4 border-blue-600"
             />
             <div className="text-center md:text-left">
-              <h2 className="text-3xl font-bold mb-2">{userInfo.name}</h2>
-              <p className="text-gray-400">{userInfo.email}</p>
-              <p className="text-gray-400">Member since {userInfo.joined}</p>
+              <h2 className="text-3xl font-bold mb-2">{user.name}</h2>
+              <p className="text-gray-400">{user.email}</p>
+              <p className="text-gray-400">Member since {user.joined}</p>
             </div>
           </div>
 
@@ -36,15 +47,15 @@ const User = () => {
               <dl className="space-y-3">
                 <div>
                   <dt className="text-gray-400">Full Name</dt>
-                  <dd className="font-medium">{userInfo.name}</dd>
+                  <dd className="font-medium">{user.name}</dd>
                 </div>
                 <div>
                   <dt className="text-gray-400">Email Address</dt>
-                  <dd className="font-medium">{userInfo.email}</dd>
+                  <dd className="font-medium">{user.email}</dd>
                 </div>
                 <div>
                   <dt className="text-gray-400">Member Since</dt>
-                  <dd className="font-medium">{userInfo.joined}</dd>
+                  <dd className="font-medium">{user.joined}</dd>
                 </div>
               </dl>
             </div>
@@ -54,20 +65,29 @@ const User = () => {
               <dl className="space-y-3">
                 <div>
                   <dt className="text-gray-400">Currency</dt>
-                  <dd className="font-medium">{userInfo.preferences.currency}</dd>
+                  <dd className="font-medium">{preferences.currency}</dd>
                 </div>
                 <div>
                   <dt className="text-gray-400">Theme</dt>
-                  <dd className="font-medium">{userInfo.preferences.theme}</dd>
+                  <dd className="font-medium">{preferences.theme}</dd>
                 </div>
                 <div>
                   <dt className="text-gray-400">Notifications</dt>
                   <dd className="font-medium">
-                    {userInfo.preferences.notifications ? "Enabled" : "Disabled"}
+                    {preferences.notifications ? "Enabled" : "Disabled"}
                   </dd>
                 </div>
               </dl>
             </div>
+          </div>
+
+          <div className="mt-8 flex justify-center">
+            <button
+              onClick={handleLogout}
+              className="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-colors"
+            >
+              Logout
+            </button>
           </div>
         </div>
       </div>

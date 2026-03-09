@@ -35,7 +35,7 @@ const About = () => {
               <p className="text-gray-400">Lead Developer</p>
             </div>
             <div className="text-center">
-            <img src="/developer.jpg" alt="Developer" className="w-32 h-32 bg-gray-700 rounded-full mx-auto mb-4" />
+              <img src="/developer.jpg" alt="Developer" className="w-32 h-32 bg-gray-700 rounded-full mx-auto mb-4" />
               <h3 className="text-xl font-semibold">Thabelo Tshishonga</h3>
               <p className="text-gray-400">UI/UX Designer</p>
             </div>
