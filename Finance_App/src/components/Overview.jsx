@@ -1,25 +1,24 @@
 import { useEffect, useState } from 'react';
+import { useAuth } from '../context/AuthContext';           // <-- add
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js/auto';
-import { Doughnut, Pie, Bar, Line } from 'react-chartjs-2';
+import { Doughnut, Bar } from 'react-chartjs-2';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-
-
-
 const Overview = () => {
- 
-    const [incomeTransactions, setIncomeTransactions] = useState([]);
-    const [expenseTransactions, setExpenseTransactions] = useState([]);
+  const { user } = useAuth();                               // <-- get current user
+  const userEmail = user?.email;
 
-    
-       // Load transactions from local storage on component mount
-       useEffect(() => {
-        const storedIncome = localStorage.getItem("moneyIn");
-        const storedExpenses = localStorage.getItem("moneyOut");
-        
-        if (storedIncome) setIncomeTransactions(JSON.parse(storedIncome));
-        if (storedExpenses) setExpenseTransactions(JSON.parse(storedExpenses));
-      }, []);
+  const [incomeTransactions, setIncomeTransactions] = useState([]);
+  const [expenseTransactions, setExpenseTransactions] = useState([]);
+
+  // Load user‑specific transactions
+  useEffect(() => {
+    if (!userEmail) return;
+    const storedIncome = localStorage.getItem(`moneyIn_${userEmail}`);
+    const storedExpenses = localStorage.getItem(`moneyOut_${userEmail}`);
+    if (storedIncome) setIncomeTransactions(JSON.parse(storedIncome));
+    if (storedExpenses) setExpenseTransactions(JSON.parse(storedExpenses));
+  }, [userEmail]);
 
       const totalIncome = incomeTransactions.reduce((sum, transaction) => {
         return sum + (parseFloat(transaction.amount) || 0);

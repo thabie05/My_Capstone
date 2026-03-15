@@ -1,56 +1,29 @@
 import { useState } from "react";
 
-const AddExpenseForm = ({ hideForm, toggleForm, setExpenseTransactions }) => {
-
-   // State management for form fields
+const AddExpenseForm = ({ hideForm, toggleForm, onAddExpense }) => {   // changed prop
   const [formData, setFormData] = useState({
-      name: "",
-      amount: "",
-      category: "",
-      date: "",
-    }); 
-    
+    name: "",
+    amount: "",
+    category: "",
+    date: "",
+  });
 
-  //update all input fields state when input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  //Submit the form and add a new transaction to the list of transactions and display them in the expense list
   const handleAddTransaction = (e) => {
     e.preventDefault();
-    const newExpense = {
-      name: formData.name,
-      amount: formData.amount,
-      category: formData.category,
-      date: formData.date,
-    };
-
-    //this is to update the list of transactions with the new transaction
-    setExpenseTransactions((prevTransactions) => {
-      const updatedExpense = [...prevTransactions, newExpense];
-      localStorage.setItem("moneyOut", JSON.stringify(updatedExpense));
-      return updatedExpense;
-    });
-    
-    
-    //this is to reset the input fields after adding a transaction
-    setFormData({
-      name: "",
-      amount: "",
-      category: "",
-      date: "",
-    });
+    const newExpense = { ...formData };
+    onAddExpense(newExpense);                                   // call parent callback
+    setFormData({ name: "", amount: "", category: "", date: "" });
   };
 
   return (
-    <div className="w-full max-w-lg mx-auto   mb-6">
-      { !hideForm &&
-        (<form onSubmit={handleAddTransaction} className="bg-[#252f53be] p-4 md:p-6 rounded-3xl shadow-md w-full">
+    <div className="w-full max-w-lg mx-auto mb-6">
+      {!hideForm && (
+        <form onSubmit={handleAddTransaction} className="bg-[#252f53be] p-4 md:p-6 rounded-3xl shadow-md w-full">
             <div className="flex justify-between items-center mb-4" id="close">
             <button
           onClick={toggleForm}
