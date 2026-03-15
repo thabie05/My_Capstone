@@ -35,7 +35,8 @@ const Login = () => {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-2 rounded text-black"
+            className="w-full p-2 rounded text-black bg-white"
+            placeholder="Enter your Email"
             required
           />
         </div>
@@ -45,7 +46,8 @@ const Login = () => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-2 rounded text-black"
+            className="w-full p-2 rounded text-black bg-white"
+            placeholder="Enter your Password"
             required
           />
         </div>
