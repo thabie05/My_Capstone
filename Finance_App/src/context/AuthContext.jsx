@@ -1,75 +1,87 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
+// context/AuthContext.js
+import React, { createContext, useState, useContext, useEffect } from 'react';
+import { 
+  createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword, 
+  signOut, 
+  onAuthStateChanged 
+} from 'firebase/auth';
+import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
+import { auth, db } from '../firebase';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [users, setUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  // Load data from localStorage on mount
+  // Register a new user
+  const register = async (name, email, password) => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Store additional user info in Firestore
+      await setDoc(doc(db, 'users', user.uid), {
+        name,
+        email,
+        joined: serverTimestamp()
+      });
+
+      // The user object in state will be updated by onAuthStateChanged
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
+
+  // Login existing user
+  const login = async (email, password) => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
+
+  // Logout
+  const logout = async () => {
+    await signOut(auth);
+  };
+
+  // Listen to auth state changes
   useEffect(() => {
-    const storedUsers = localStorage.getItem("registeredUsers");
-    if (storedUsers) {
-      setUsers(JSON.parse(storedUsers));
-    }
-    const storedCurrentUser = localStorage.getItem("currentUser");
-    if (storedCurrentUser) {
-      setCurrentUser(JSON.parse(storedCurrentUser));
-      setIsAuthenticated(true);
-    }
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        // Fetch additional user data from Firestore
+        const userDoc = await getDoc(doc(db, 'users', user.uid));
+        const userData = userDoc.data();
+        setCurrentUser({ 
+          uid: user.uid, 
+          email: user.email, 
+          name: userData?.name || 'User',
+          joined: userData?.joined?.toDate().toLocaleString('default', { month: 'long', year: 'numeric' }) || 'N/A'
+        });
+      } else {
+        setCurrentUser(null);
+      }
+      setLoading(false);
+    });
+
+    return unsubscribe;
   }, []);
 
-  const register = (name, email, password) => {
-    // Check if user already exists
-    const existingUser = users.find(u => u.email === email);
-    if (existingUser) {
-      throw new Error("User already exists with this email.");
-    }
-    const newUser = {
-      name,
-      email,
-      password, // In real app, hash this!
-      joined: new Date().toLocaleString('default', { month: 'long', year: 'numeric' })
-    };
-    const updatedUsers = [...users, newUser];
-    setUsers(updatedUsers);
-    localStorage.setItem("registeredUsers", JSON.stringify(updatedUsers));
-    // Auto login after registration
-    setCurrentUser(newUser);
-    setIsAuthenticated(true);
-    localStorage.setItem("currentUser", JSON.stringify(newUser));
-    localStorage.setItem("isAuthenticated", "true");
-  };
-
-  const login = (email, password) => {
-    const user = users.find(u => u.email === email && u.password === password);
-    if (!user) {
-      throw new Error("Invalid email or password.");
-    }
-    setCurrentUser(user);
-    setIsAuthenticated(true);
-    localStorage.setItem("currentUser", JSON.stringify(user));
-    localStorage.setItem("isAuthenticated", "true");
-  };
-
-  const logout = () => {
-    setCurrentUser(null);
-    setIsAuthenticated(false);
-    localStorage.removeItem("currentUser");
-    localStorage.removeItem("isAuthenticated");
-    // Optionally clear transactions if desired
+  const value = {
+    currentUser,
+    isAuthenticated: !!currentUser,
+    login,
+    register,
+    logout,
+    loading
   };
 
   return (
-    <AuthContext.Provider value={{ 
-      isAuthenticated, 
-      user: currentUser, 
-      login, 
-      logout, 
-      register 
-    }}>
-      {children}
+    <AuthContext.Provider value={value}>
+      {!loading && children}
     </AuthContext.Provider>
   );
 };

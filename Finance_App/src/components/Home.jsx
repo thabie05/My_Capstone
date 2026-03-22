@@ -1,5 +1,8 @@
+// components/Home.js
 import { useEffect, useState } from "react";
-import { useAuth } from "../context/AuthContext";          // <-- add
+import { useAuth } from "../context/AuthContext";
+import { collection, query, where, onSnapshot, addDoc, deleteDoc, doc } from 'firebase/firestore';
+import { db } from "../firebase";
 import ExpenseList from "./ExpenseList";
 import TotalAmount from "./TotalAmount";
 import AddExpenseForm from "./AddExpenseForm";
@@ -8,9 +11,7 @@ import IncomeList from "./IncomeList";
 import DateSelector from "./DateSelector";
 
 const Home = () => {
-  const { user } = useAuth();                              // <-- get current user
-  const userEmail = user?.email;                            // unique identifier
-
+  const { currentUser } = useAuth();
   const [hideIncomeForm, setHideIncomeForm] = useState(true);
   const [hideExpenseForm, setHideExpenseForm] = useState(true);
   const [incomeTransactions, setIncomeTransactions] = useState([]);
@@ -20,47 +21,84 @@ const Home = () => {
   const toggleIncomeForm = () => setHideIncomeForm(!hideIncomeForm);
   const toggleExpenseForm = () => setHideExpenseForm(!hideExpenseForm);
 
-  // Load user‑specific data from localStorage
+  // Set up real-time listeners for income and expenses
   useEffect(() => {
-    if (!userEmail) return;
-    const storedIncome = localStorage.getItem(`moneyIn_${userEmail}`);
-    const storedExpenses = localStorage.getItem(`moneyOut_${userEmail}`);
-    if (storedIncome) setIncomeTransactions(JSON.parse(storedIncome));
-    if (storedExpenses) setExpenseTransactions(JSON.parse(storedExpenses));
-  }, [userEmail]);                                         // re‑run when user changes
+    if (!currentUser) return;
 
-  // Save helpers
-  const saveIncome = (transactions) => {
-    localStorage.setItem(`moneyIn_${userEmail}`, JSON.stringify(transactions));
+    // Income listener
+    const incomeQuery = query(
+      collection(db, 'incomes'),
+      where('userId', '==', currentUser.uid)
+    );
+    const unsubscribeIncome = onSnapshot(incomeQuery, (snapshot) => {
+      const incomes = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setIncomeTransactions(incomes);
+    });
+
+    // Expense listener
+    const expenseQuery = query(
+      collection(db, 'expenses'),
+      where('userId', '==', currentUser.uid)
+    );
+    const unsubscribeExpense = onSnapshot(expenseQuery, (snapshot) => {
+      const expenses = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setExpenseTransactions(expenses);
+    });
+
+    return () => {
+      unsubscribeIncome();
+      unsubscribeExpense();
+    };
+  }, [currentUser]);
+
+  // Add income
+  const handleAddIncome = async (newIncome) => {
+    try {
+      await addDoc(collection(db, 'incomes'), {
+        ...newIncome,
+        userId: currentUser.uid,
+        createdAt: new Date().toISOString()
+      });
+    } catch (error) {
+      console.error("Error adding income: ", error);
+    }
   };
 
-  const saveExpense = (transactions) => {
-    localStorage.setItem(`moneyOut_${userEmail}`, JSON.stringify(transactions));
+  // Add expense
+  const handleAddExpense = async (newExpense) => {
+    try {
+      await addDoc(collection(db, 'expenses'), {
+        ...newExpense,
+        userId: currentUser.uid,
+        createdAt: new Date().toISOString()
+      });
+    } catch (error) {
+      console.error("Error adding expense: ", error);
+    }
   };
 
-  // Handlers for adding/removing
-  const handleAddIncome = (newIncome) => {
-    const updated = [...incomeTransactions, newIncome];
-    setIncomeTransactions(updated);
-    saveIncome(updated);
+  // Remove income
+  const handleRemoveIncome = async (id) => {
+    try {
+      await deleteDoc(doc(db, 'incomes', id));
+    } catch (error) {
+      console.error("Error removing income: ", error);
+    }
   };
 
-  const handleAddExpense = (newExpense) => {
-    const updated = [...expenseTransactions, newExpense];
-    setExpenseTransactions(updated);
-    saveExpense(updated);
-  };
-
-  const handleRemoveIncome = (index) => {
-    const updated = incomeTransactions.filter((_, i) => i !== index);
-    setIncomeTransactions(updated);
-    saveIncome(updated);
-  };
-
-  const handleRemoveExpense = (index) => {
-    const updated = expenseTransactions.filter((_, i) => i !== index);
-    setExpenseTransactions(updated);
-    saveExpense(updated);
+  // Remove expense
+  const handleRemoveExpense = async (id) => {
+    try {
+      await deleteDoc(doc(db, 'expenses', id));
+    } catch (error) {
+      console.error("Error removing expense: ", error);
+    }
   };
 
   const filterTransactionsByDate = (transactions) => {
@@ -92,11 +130,11 @@ const Home = () => {
               <AddIncomeForm
                 hideForm={hideIncomeForm}
                 toggleForm={toggleIncomeForm}
-                onAddIncome={handleAddIncome}               // <-- pass callback
+                onAddIncome={handleAddIncome}
               />
               <IncomeList
                 transactions={filterTransactionsByDate(incomeTransactions)}
-                onRemove={handleRemoveIncome}                // <-- already using callback
+                onRemove={handleRemoveIncome}
                 toggleForm={toggleIncomeForm}
                 hideForm={hideIncomeForm}
               />
@@ -105,11 +143,11 @@ const Home = () => {
               <AddExpenseForm
                 hideForm={hideExpenseForm}
                 toggleForm={toggleExpenseForm}
-                onAddExpense={handleAddExpense}              // <-- pass callback
+                onAddExpense={handleAddExpense}
               />
               <ExpenseList
                 transactions={filterTransactionsByDate(expenseTransactions)}
-                onRemove={handleRemoveExpense}                // <-- already using callback
+                onRemove={handleRemoveExpense}
                 toggleForm={toggleExpenseForm}
                 hideForm={hideExpenseForm}
               />
