@@ -27,8 +27,6 @@ export const AuthProvider = ({ children }) => {
         email,
         joined: serverTimestamp()
       });
-
-      // The user object in state will be updated by onAuthStateChanged
     } catch (error) {
       throw new Error(error.message);
     }
