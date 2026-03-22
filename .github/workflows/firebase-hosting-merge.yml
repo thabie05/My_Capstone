@@ -11,8 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npm ci
-        working-directory: ./Finance_App
       - run: npm run build
         working-directory: ./Finance_App
       - uses: FirebaseExtended/action-hosting-deploy@v0
