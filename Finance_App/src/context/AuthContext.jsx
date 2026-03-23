@@ -55,6 +55,7 @@ export const AuthProvider = ({ children }) => {
         // Fetch additional user data from Firestore
         const userDoc = await getDoc(doc(db, 'users', user.uid));
         const userData = userDoc.data();
+        console.log('Fetched user data:', userData);
         setCurrentUser({ 
           uid: user.uid, 
           email: user.email, 
