@@ -22,6 +22,7 @@ const User = () => {
     notifications: true
   };
 
+  console.log('User in component:', user);
   return (
     <div className="min-h-screen text-gray-100 p-8">
       <div className="max-w-4xl mx-auto">

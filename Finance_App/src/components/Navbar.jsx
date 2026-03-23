@@ -7,6 +7,8 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  console.log('User in component:', user);
+  
   const handleLogout = () => {
     logout();
     navigate("/login");
