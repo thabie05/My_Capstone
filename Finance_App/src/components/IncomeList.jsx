@@ -35,7 +35,7 @@ const IncomeList = ({ transactions, onRemove, hideForm, toggleForm, ...props }) 
                 </td>
                 <td className="px-3 py-4 sm:px-4 whitespace-nowrap text-center">
           <button 
-              onClick={() => onRemove(index)}
+              onClick={() => onRemove(transaction.id)}
               className="bg-red-600 text-white px-2 py-1 text-xs rounded-full hover:bg-red-700 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-800"
               aria-label={`Delete transaction ${transaction.name}`}
             >
