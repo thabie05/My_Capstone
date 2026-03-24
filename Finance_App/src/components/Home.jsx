@@ -11,7 +11,7 @@ import IncomeList from "./IncomeList";
 import DateSelector from "./DateSelector";
 
 const Home = () => {
-  const { currentUser } = useAuth();
+  const { user } = useAuth();                     // <-- changed
   const [hideIncomeForm, setHideIncomeForm] = useState(true);
   const [hideExpenseForm, setHideExpenseForm] = useState(true);
   const [incomeTransactions, setIncomeTransactions] = useState([]);
@@ -23,12 +23,12 @@ const Home = () => {
 
   // Set up real-time listeners for income and expenses
   useEffect(() => {
-    if (!currentUser) return;
+    if (!user) return;                           // <-- changed
 
     // Income listener
     const incomeQuery = query(
       collection(db, 'incomes'),
-      where('userId', '==', currentUser.uid)
+      where('userId', '==', user.uid)            // <-- changed
     );
     const unsubscribeIncome = onSnapshot(incomeQuery, (snapshot) => {
       const incomes = snapshot.docs.map(doc => ({
@@ -41,7 +41,7 @@ const Home = () => {
     // Expense listener
     const expenseQuery = query(
       collection(db, 'expenses'),
-      where('userId', '==', currentUser.uid)
+      where('userId', '==', user.uid)            // <-- changed
     );
     const unsubscribeExpense = onSnapshot(expenseQuery, (snapshot) => {
       const expenses = snapshot.docs.map(doc => ({
@@ -55,14 +55,18 @@ const Home = () => {
       unsubscribeIncome();
       unsubscribeExpense();
     };
-  }, [currentUser]);
+  }, [user]);                                    // <-- changed
 
   // Add income
   const handleAddIncome = async (newIncome) => {
+    if (!user) {
+      console.error("Cannot add income: user not logged in");
+      return;
+    }
     try {
       await addDoc(collection(db, 'incomes'), {
         ...newIncome,
-        userId: currentUser.uid,
+        userId: user.uid,                        // <-- changed
         createdAt: new Date().toISOString()
       });
     } catch (error) {
@@ -72,10 +76,14 @@ const Home = () => {
 
   // Add expense
   const handleAddExpense = async (newExpense) => {
+    if (!user) {
+      console.error("Cannot add expense: user not logged in");
+      return;
+    }
     try {
       await addDoc(collection(db, 'expenses'), {
         ...newExpense,
-        userId: currentUser.uid,
+        userId: user.uid,                        // <-- changed
         createdAt: new Date().toISOString()
       });
     } catch (error) {

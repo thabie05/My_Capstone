@@ -9,16 +9,16 @@ import { Doughnut, Bar } from 'react-chartjs-2';
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
 
 const Overview = () => {
-  const { currentUser } = useAuth();
+  const { user } = useAuth();
   const [incomeTransactions, setIncomeTransactions] = useState([]);
   const [expenseTransactions, setExpenseTransactions] = useState([]);
 
   useEffect(() => {
-    if (!currentUser) return;
+    if (!user) return;
 
     const incomeQuery = query(
       collection(db, 'incomes'),
-      where('userId', '==', currentUser.uid)
+      where('userId', '==', user.uid)
     );
     const unsubscribeIncome = onSnapshot(incomeQuery, (snapshot) => {
       const incomes = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -27,7 +27,7 @@ const Overview = () => {
 
     const expenseQuery = query(
       collection(db, 'expenses'),
-      where('userId', '==', currentUser.uid)
+      where('userId', '==', user.uid)
     );
     const unsubscribeExpense = onSnapshot(expenseQuery, (snapshot) => {
       const expenses = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));

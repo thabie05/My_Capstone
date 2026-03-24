@@ -50,26 +50,48 @@ export const AuthProvider = ({ children }) => {
 
   // Listen to auth state changes
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
+  const unsubscribe = onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      try {
         // Fetch additional user data from Firestore
         const userDoc = await getDoc(doc(db, 'users', user.uid));
         const userData = userDoc.data();
         console.log('Fetched user data:', userData);
+        
+        // Determine joined date: use Firestore timestamp if exists, else fallback to Auth creation time
+        let joinedDate = 'N/A';
+        if (userData?.joined) {
+          joinedDate = userData.joined.toDate().toLocaleString('default', { month: 'long', year: 'numeric' });
+        } else if (user.metadata?.creationTime) {
+          // If Firestore doesn't have joined, use the user's creation time from Auth
+          const creationDate = new Date(user.metadata.creationTime);
+          joinedDate = creationDate.toLocaleString('default', { month: 'long', year: 'numeric' });
+        }
+        
         setCurrentUser({ 
           uid: user.uid, 
           email: user.email, 
           name: userData?.name || 'User',
-          joined: userData?.joined?.toDate().toLocaleString('default', { month: 'long', year: 'numeric' }) || 'N/A'
+          joined: joinedDate
         });
-      } else {
-        setCurrentUser(null);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        // Set basic user object so app doesn't break
+        setCurrentUser({ 
+          uid: user.uid, 
+          email: user.email, 
+          name: 'User',
+          joined: 'N/A'
+        });
       }
-      setLoading(false);
-    });
+    } else {
+      setCurrentUser(null);
+    }
+    setLoading(false);
+  });
 
-    return unsubscribe;
-  }, []);
+  return unsubscribe;
+}, []);
 
   const value = {
     user: currentUser,
