@@ -1,3 +1,4 @@
+console.log('Home - user:', user);
 // components/Home.js
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
@@ -59,19 +60,27 @@ const Home = () => {
 
   // Add income
   const handleAddIncome = async (newIncome) => {
-    try {
-      await addDoc(collection(db, 'incomes'), {
-        ...newIncome,
-        userId: user.uid,                // <-- changed
-        createdAt: new Date().toISOString()
-      });
-    } catch (error) {
-      console.error("Error adding income: ", error);
-    }
-  };
+  if (!user) {
+    console.error("Cannot add income: user not logged in");
+    return;
+  }
+  try {
+    await addDoc(collection(db, 'incomes'), {
+      ...newIncome,
+      userId: user.uid,
+      createdAt: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error("Error adding income: ", error);
+  }
+};
 
   // Add expense
   const handleAddExpense = async (newExpense) => {
+    if (!user) {
+      console.error("Cannot add expense: user not logged in");
+      return;
+    }
     try {
       await addDoc(collection(db, 'expenses'), {
         ...newExpense,
