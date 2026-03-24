@@ -1,14 +1,13 @@
+// components/Navbar.js
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import logo from "./Images/logo.png";
 
 const Navbar = () => {
-  const { isAuthenticated, user, logout } = useAuth();   // added `user`
+  const { user, isAuthenticated, logout, loading } = useAuth();   // <-- use user
   const navigate = useNavigate();
   const location = useLocation();
 
-  console.log('User in component:', user);
-  
   const handleLogout = () => {
     logout();
     navigate("/login");
@@ -17,6 +16,11 @@ const Navbar = () => {
   // Hide navbar on login and register pages
   if (location.pathname === "/login" || location.pathname === "/register") {
     return null;
+  }
+
+  // Optional: show a simple loading state while checking auth
+  if (loading) {
+    return null; // or a loading spinner if you prefer
   }
 
   return (

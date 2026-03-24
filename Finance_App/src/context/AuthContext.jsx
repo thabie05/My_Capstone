@@ -12,6 +12,7 @@ import { auth, db } from '../firebase';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  // This holds the current user object (including name, email, joined)
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -52,16 +53,27 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        // Fetch additional user data from Firestore
-        const userDoc = await getDoc(doc(db, 'users', user.uid));
-        const userData = userDoc.data();
-        console.log('Fetched user data:', userData);
-        setCurrentUser({ 
-          uid: user.uid, 
-          email: user.email, 
-          name: userData?.name || 'User',
-          joined: userData?.joined?.toDate().toLocaleString('default', { month: 'long', year: 'numeric' }) || 'N/A'
-        });
+        try {
+          // Fetch additional user data from Firestore
+          const userDoc = await getDoc(doc(db, 'users', user.uid));
+          const userData = userDoc.data();
+          console.log('Fetched user data:', userData);
+          setCurrentUser({ 
+            uid: user.uid, 
+            email: user.email, 
+            name: userData?.name || 'User',
+            joined: userData?.joined?.toDate().toLocaleString('default', { month: 'long', year: 'numeric' }) || 'N/A'
+          });
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+          // Still set a basic user object so the app doesn't break
+          setCurrentUser({ 
+            uid: user.uid, 
+            email: user.email, 
+            name: 'User',
+            joined: 'N/A'
+          });
+        }
       } else {
         setCurrentUser(null);
       }
@@ -71,8 +83,9 @@ export const AuthProvider = ({ children }) => {
     return unsubscribe;
   }, []);
 
+  // The value exposed to consumers
   const value = {
-    user: currentUser,
+    user: currentUser,        // <-- components will use `user` from useAuth()
     isAuthenticated: !!currentUser,
     login,
     register,
