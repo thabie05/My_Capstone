@@ -3,15 +3,11 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const User = () => {
-  const { user, logout, loading } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  if (loading) {
-    return <div className="text-white p-8">Loading...</div>;
-  }
-
   if (!user) {
-    return <div className="text-white p-8">No user data available. Please log in.</div>;
+    return <div className="text-white p-8">Loading...</div>;
   }
 
   const handleLogout = () => {
@@ -19,23 +15,24 @@ const User = () => {
     navigate("/login");
   };
 
-  // You can store preferences in a separate Firestore collection later
+  // Default preferences – you could store these in user state later
   const preferences = {
     currency: "ZAR",
     theme: "Dark",
     notifications: true
   };
 
+  console.log('User in component:', user);
   return (
     <div className="min-h-screen text-gray-100 p-8">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-4xl font-bold text-center mb-8">User Profile</h1>
-
+        
         <div className="bg-[#252f53be] rounded-2xl shadow-lg p-8">
           <div className="flex flex-col md:flex-row items-center gap-6 mb-8">
-            <img
-              src="/developer.jpg"
-              alt="User avatar"
+            <img 
+              src="/developer.jpg" 
+              alt="User avatar" 
               className="w-32 h-32 rounded-full border-4 border-blue-600"
             />
             <div className="text-center md:text-left">

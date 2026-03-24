@@ -11,7 +11,7 @@ import IncomeList from "./IncomeList";
 import DateSelector from "./DateSelector";
 
 const Home = () => {
-  const { user } = useAuth();                     // <-- get user
+  const { currentUser } = useAuth();
   const [hideIncomeForm, setHideIncomeForm] = useState(true);
   const [hideExpenseForm, setHideExpenseForm] = useState(true);
   const [incomeTransactions, setIncomeTransactions] = useState([]);
@@ -23,12 +23,12 @@ const Home = () => {
 
   // Set up real-time listeners for income and expenses
   useEffect(() => {
-    if (!user) return;   // <-- changed
+    if (!currentUser) return;
 
     // Income listener
     const incomeQuery = query(
       collection(db, 'incomes'),
-      where('userId', '==', user.uid)   // <-- changed
+      where('userId', '==', currentUser.uid)
     );
     const unsubscribeIncome = onSnapshot(incomeQuery, (snapshot) => {
       const incomes = snapshot.docs.map(doc => ({
@@ -41,7 +41,7 @@ const Home = () => {
     // Expense listener
     const expenseQuery = query(
       collection(db, 'expenses'),
-      where('userId', '==', user.uid)   // <-- changed
+      where('userId', '==', currentUser.uid)
     );
     const unsubscribeExpense = onSnapshot(expenseQuery, (snapshot) => {
       const expenses = snapshot.docs.map(doc => ({
@@ -55,14 +55,14 @@ const Home = () => {
       unsubscribeIncome();
       unsubscribeExpense();
     };
-  }, [user]);   // <-- changed
+  }, [currentUser]);
 
   // Add income
   const handleAddIncome = async (newIncome) => {
     try {
       await addDoc(collection(db, 'incomes'), {
         ...newIncome,
-        userId: user.uid,                // <-- changed
+        userId: currentUser.uid,
         createdAt: new Date().toISOString()
       });
     } catch (error) {
@@ -75,7 +75,7 @@ const Home = () => {
     try {
       await addDoc(collection(db, 'expenses'), {
         ...newExpense,
-        userId: user.uid,                // <-- changed
+        userId: currentUser.uid,
         createdAt: new Date().toISOString()
       });
     } catch (error) {
