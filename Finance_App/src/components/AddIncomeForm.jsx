@@ -18,7 +18,6 @@ const AddIncomeForm = ({ hideForm, toggleForm, onAddIncome }) => {   // changed 
     const newIncome = { ...formIncome };
     onAddIncome(newIncome);                                    // call parent callback
     setFormIncome({ name: "", amount: "", category: "", date: "" });
-    console.log('Current user object:', user);
   };
 
   return (

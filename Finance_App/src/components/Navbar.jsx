@@ -1,4 +1,3 @@
-console.log('Navbar - user:', user);
 // components/Navbar.js
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
