@@ -6,7 +6,10 @@ import {
   GoogleAuthProvider, 
   FacebookAuthProvider, 
   signInWithPopup,
-  sendPasswordResetEmail
+  sendPasswordResetEmail,
+  fetchSignInMethodsForEmail,
+  linkWithCredential,
+  signInWithCredential
 } from "firebase/auth";
 import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
 import { auth, db } from "../firebase";
@@ -19,14 +22,10 @@ const Login = () => {
   const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
-  // Redirect when authenticated
   useEffect(() => {
-    if (isAuthenticated) {
-      navigate("/");
-    }
+    if (isAuthenticated) navigate("/");
   }, [isAuthenticated, navigate]);
 
-  // Load remembered email from localStorage on mount
   useEffect(() => {
     const savedEmail = localStorage.getItem("rememberedEmail");
     if (savedEmail) {
@@ -35,19 +34,17 @@ const Login = () => {
     }
   }, []);
 
-  // Helper: create/update user document in Firestore after social sign-in
+  // Helper: create/update user document in Firestore
   const handleSocialSignIn = async (user, nameFromProvider = null) => {
     const userDocRef = doc(db, 'users', user.uid);
     const userDoc = await getDoc(userDocRef);
     if (!userDoc.exists()) {
-      // New user – create document
       await setDoc(userDocRef, {
         name: nameFromProvider || user.displayName || user.email.split('@')[0],
         email: user.email,
         joined: serverTimestamp()
       });
     } else {
-      // Optional: update name if changed (rare)
       const currentData = userDoc.data();
       if (!currentData.name && nameFromProvider) {
         await setDoc(userDocRef, { name: nameFromProvider }, { merge: true });
@@ -55,33 +52,43 @@ const Login = () => {
     }
   };
 
-  const handleGoogleSignIn = async () => {
+  // Generic social sign-in with automatic account linking
+  const handleSocialSignInWithLinking = async (provider, providerName) => {
     try {
-      const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      // Get name from Google profile (first name + last name)
-      const name = user.displayName || user.email.split('@')[0];
+      const email = user.email;
+
+      // Check if there is an existing email/password account with the same email
+      const signInMethods = await fetchSignInMethodsForEmail(auth, email);
+      if (signInMethods.includes('password')) {
+        // Existing email/password account – link the new credential
+        const credential = provider.credentialFromResult(result);
+        await linkWithCredential(user, credential);
+        // After linking, the user can sign in with either method
+      }
+
+      // Ensure Firestore document exists
+      const name = user.displayName || email.split('@')[0];
       await handleSocialSignIn(user, name);
-      // The AuthContext's onAuthStateChanged will pick up the user and set it
     } catch (error) {
-      console.error("Google sign-in error:", error);
-      setError(error.message);
+      console.error(`${providerName} sign-in error:`, error);
+      if (error.code === 'auth/credential-already-in-use') {
+        setError(`This ${providerName} account is already linked to another user.`);
+      } else {
+        setError(error.message);
+      }
     }
   };
 
-  const handleFacebookSignIn = async () => {
-    try {
-      const provider = new FacebookAuthProvider();
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      // Facebook may not always return displayName; fallback to email
-      const name = user.displayName || user.email.split('@')[0];
-      await handleSocialSignIn(user, name);
-    } catch (error) {
-      console.error("Facebook sign-in error:", error);
-      setError(error.message);
-    }
+  const handleGoogleSignIn = () => {
+    const provider = new GoogleAuthProvider();
+    handleSocialSignInWithLinking(provider, 'Google');
+  };
+
+  const handleFacebookSignIn = () => {
+    const provider = new FacebookAuthProvider();
+    handleSocialSignInWithLinking(provider, 'Facebook');
   };
 
   const handleSubmit = async (e) => {
@@ -95,7 +102,11 @@ const Login = () => {
         localStorage.removeItem("rememberedEmail");
       }
     } catch (err) {
-      setError(err.message);
+      if (err.code === 'auth/account-exists-with-different-credential') {
+        setError("An account already exists with this email using a different sign-in method (e.g., Google). Please sign in with that method.");
+      } else {
+        setError(err.message);
+      }
     }
   };
 
@@ -114,13 +125,11 @@ const Login = () => {
     <div className="flex items-center justify-center min-h-screen bg-gray-900">
       <div className="bg-[#252f53be] p-8 rounded-3xl shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold text-white mb-6 text-center">Sign In</h2>
-
         {error && (
           <div className="bg-red-600 text-white p-3 rounded mb-4 text-center">
             {error}
           </div>
         )}
-
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-100 mb-1">Email</label>
@@ -133,7 +142,6 @@ const Login = () => {
               required
             />
           </div>
-
           <div className="mb-4">
             <label className="block text-gray-100 mb-1">Password</label>
             <input
@@ -145,7 +153,6 @@ const Login = () => {
               required
             />
           </div>
-
           <div className="flex items-center justify-between mb-6">
             <label className="flex items-center">
               <input
@@ -164,7 +171,6 @@ const Login = () => {
               Forgot Password?
             </button>
           </div>
-
           <button
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition-colors"

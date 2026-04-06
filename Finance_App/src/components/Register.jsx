@@ -86,8 +86,12 @@ const Register = () => {
       await register(name, email, password);
       // Redirect is handled by the useEffect watching isAuthenticated
     } catch (err) {
-      setError(err.message);
-    }
+  if (err.code === 'auth/email-already-in-use') {
+    setError('An account already exists with this email. Please sign in with Google or Facebook.');
+  } else {
+    setError(err.message);
+  }
+}
   };
 
   return (
