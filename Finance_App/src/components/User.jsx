@@ -100,7 +100,7 @@ const User = () => {
             {/* Profile Picture with upload */}
             <div className="relative">
               <img 
-                src={user.photoURL || "/developer.jpg"} 
+                src={user.photoURL || "/developer.png"} 
                 alt="User avatar" 
                 className="w-32 h-32 rounded-full border-4 border-blue-600 object-cover"
               />
