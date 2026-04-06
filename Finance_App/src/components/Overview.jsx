@@ -9,16 +9,16 @@ import { Doughnut, Bar } from 'react-chartjs-2';
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
 
 const Overview = () => {
-  const { user } = useAuth();
+  const { user } = useAuth();                     // <-- use "user", not "currentUser"
   const [incomeTransactions, setIncomeTransactions] = useState([]);
   const [expenseTransactions, setExpenseTransactions] = useState([]);
 
   useEffect(() => {
-    if (!user) return;
+    if (!user) return;                           // <-- check "user"
 
     const incomeQuery = query(
       collection(db, 'incomes'),
-      where('userId', '==', user.uid)
+      where('userId', '==', user.uid)            // <-- user.uid
     );
     const unsubscribeIncome = onSnapshot(incomeQuery, (snapshot) => {
       const incomes = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -27,7 +27,7 @@ const Overview = () => {
 
     const expenseQuery = query(
       collection(db, 'expenses'),
-      where('userId', '==', user.uid)
+      where('userId', '==', user.uid)            // <-- user.uid
     );
     const unsubscribeExpense = onSnapshot(expenseQuery, (snapshot) => {
       const expenses = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -38,7 +38,7 @@ const Overview = () => {
       unsubscribeIncome();
       unsubscribeExpense();
     };
-  }, [currentUser]);
+  }, [user]);                                    // <-- dependency "user"
 
   const totalIncome = incomeTransactions.reduce((sum, t) => sum + (parseFloat(t.amount) || 0), 0);
   const totalExpense = expenseTransactions.reduce((sum, t) => sum + (parseFloat(t.amount) || 0), 0);
